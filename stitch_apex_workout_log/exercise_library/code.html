@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Exercise Library - Iron Track</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary-fixed": "#e2e2e2",
+                      "on-primary-fixed-variant": "#930100",
+                      "inverse-surface": "#e5e2e1",
+                      "tertiary-fixed-dim": "#c6c6c7",
+                      "surface-variant": "#353534",
+                      "outline": "#b08781",
+                      "on-primary": "#690000",
+                      "on-secondary-container": "#541100",
+                      "on-primary-container": "#fff7f5",
+                      "surface-bright": "#393939",
+                      "outline-variant": "#5f3f3a",
+                      "on-secondary-fixed": "#3b0900",
+                      "inverse-primary": "#c00000",
+                      "surface-container": "#201f1f",
+                      "secondary-fixed": "#ffdbd1",
+                      "background": "#131313",
+                      "secondary": "#ffb5a0",
+                      "tertiary": "#c6c6c7",
+                      "on-tertiary-container": "#f8f8f8",
+                      "surface-container-high": "#2a2a2a",
+                      "on-secondary-fixed-variant": "#872000",
+                      "on-background": "#e5e2e1",
+                      "surface": "#131313",
+                      "on-error": "#690005",
+                      "primary-container": "#e60000",
+                      "tertiary-container": "#717272",
+                      "primary-fixed-dim": "#ffb4a8",
+                      "on-tertiary-fixed-variant": "#454747",
+                      "secondary-container": "#ff5625",
+                      "on-tertiary-fixed": "#1a1c1c",
+                      "error-container": "#93000a",
+                      "on-secondary": "#601400",
+                      "surface-container-low": "#1c1b1b",
+                      "error": "#ffb4ab",
+                      "surface-dim": "#131313",
+                      "primary": "#ffb4a8",
+                      "on-surface": "#e5e2e1",
+                      "on-primary-fixed": "#410000",
+                      "surface-container-highest": "#353534",
+                      "secondary-fixed-dim": "#ffb5a0",
+                      "on-error-container": "#ffdad6",
+                      "primary-fixed": "#ffdad4",
+                      "inverse-on-surface": "#313030",
+                      "surface-tint": "#ffb4a8",
+                      "on-tertiary": "#2f3131",
+                      "on-surface-variant": "#e9bcb5",
+                      "surface-container-lowest": "#0e0e0e"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "stack-sm": "8px",
+                      "stack-md": "24px",
+                      "stack-lg": "48px",
+                      "margin-mobile": "20px",
+                      "gutter": "16px",
+                      "margin-desktop": "40px",
+                      "base-unit": "8px"
+              },
+              "fontFamily": {
+                      "display-xl": ["Lexend"],
+                      "headline-md": ["Lexend"],
+                      "label-bold": ["Lexend"],
+                      "body-lg": ["Lexend"],
+                      "headline-lg": ["Lexend"],
+                      "body-md": ["Lexend"]
+              },
+              "fontSize": {
+                      "display-xl": ["80px", {"lineHeight": "1.0", "letterSpacing": "-0.04em", "fontWeight": "900"}],
+                      "headline-md": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                      "label-bold": ["14px", {"lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                      "body-lg": ["18px", {"lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400"}],
+                      "headline-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                      "body-md": ["16px", {"lineHeight": "1.5", "letterSpacing": "0", "fontWeight": "400"}]
+              }
+      },
+          },
+        }
+      </script>
+</head>
+<body class="bg-background text-on-background antialiased selection:bg-primary selection:text-on-primary">
+<!-- TopAppBar (Web) -->
+<header class="hidden md:flex fixed top-0 left-0 w-full z-50 justify-between items-center px-6 h-20 bg-black border-b-2 border-zinc-800 transition-all duration-75 active:scale-95">
+<div class="text-3xl font-black italic text-red-600 font-lexend tracking-tighter">IRON TRACK</div>
+<div class="flex items-center gap-gutter">
+<!-- Search on right logic applied here -->
+<div class="relative hidden lg:block mr-4">
+<input class="bg-surface-container text-on-surface border-b-2 border-surface-variant focus:border-b-primary-container focus:outline-none transition-colors px-4 py-2 font-body-md text-body-md placeholder:text-outline w-64 italic focus:font-bold focus:italic" placeholder="Search..." type="text"/>
+<span class="material-symbols-outlined absolute right-2 top-2 text-outline">search</span>
+</div>
+<button class="text-zinc-400 hover:text-red-500 hover:bg-zinc-900 p-2"><span class="material-symbols-outlined">notifications</span></button>
+<button class="text-zinc-400 hover:text-red-500 hover:bg-zinc-900 p-2"><span class="material-symbols-outlined">account_circle</span></button>
+</div>
+</header>
+<!-- SideNavBar (Web) -->
+<nav class="hidden md:flex fixed left-0 top-20 h-[calc(100vh-80px)] w-64 z-40 flex-col bg-zinc-900 border-r-2 border-zinc-800">
+<div class="p-6 border-b-2 border-zinc-800 mb-4">
+<div class="w-16 h-16 bg-surface-variant rounded-full mb-4 overflow-hidden border-2 border-primary-container">
+<img alt="Athlete Profile" class="w-full h-full object-cover" data-alt="Close up portrait of a tough athlete in dramatic gym lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZjrvgI4CsgRQ_oVzjTTR6p2DVXTqyfNFj81Om8WfVFoo5UN8d_EyN9jMUHNMuuI_Kio1zaapXeyUixTMCnGzcaOHIn6I8TvnlHqvjUXwbtfbazoyQkFSDre67vLJS9bk7wQgfQh0bJ_evQ7D2UbhUO74Y18vjLfZPNg0xFwXDZB8a4ODLyprsUB3B2oFqlUCx4tjibN6jBrqwRIpKufww013DftVFFaBNatcBQs6J0_Jpb1v_w3zjtS8z_N3hv0_ooAsE2KtEjm83"/>
+</div>
+<h2 class="font-headline-md text-headline-md text-on-background mb-1 truncate uppercase">ELITE ATHLETE</h2>
+<p class="font-label-bold text-label-bold text-primary truncate uppercase">RANK: PLATINUM</p>
+</div>
+<div class="flex flex-col flex-grow">
+<!-- Workouts active -->
+<a class="flex items-center px-6 py-4 font-lexend font-black italic bg-red-600 text-black border-l-4 border-white scale-105-on-hover" href="#">
+<span class="material-symbols-outlined mr-4" style="font-variation-settings: 'FILL' 1;">fitness_center</span>
+                WORKOUTS
+            </a>
+<a class="flex items-center px-6 py-4 font-lexend font-black italic text-zinc-500 hover:text-white hover:bg-zinc-800 scale-105-on-hover transition-colors" href="#">
+<span class="material-symbols-outlined mr-4">leaderboard</span>
+                ANALYTICS
+            </a>
+<a class="flex items-center px-6 py-4 font-lexend font-black italic text-zinc-500 hover:text-white hover:bg-zinc-800 scale-105-on-hover transition-colors" href="#">
+<span class="material-symbols-outlined mr-4">groups</span>
+                COMPETE
+            </a>
+<a class="flex items-center px-6 py-4 font-lexend font-black italic text-zinc-500 hover:text-white hover:bg-zinc-800 scale-105-on-hover transition-colors" href="#">
+<span class="material-symbols-outlined mr-4">history</span>
+                HISTORY
+            </a>
+<a class="flex items-center px-6 py-4 font-lexend font-black italic text-zinc-500 hover:text-white hover:bg-zinc-800 scale-105-on-hover transition-colors" href="#">
+<span class="material-symbols-outlined mr-4">settings</span>
+                SETTINGS
+            </a>
+</div>
+</nav>
+<!-- TopAppBar (Mobile) -->
+<header class="md:hidden flex fixed top-0 left-0 w-full z-50 justify-between items-center px-4 h-16 bg-black border-b-2 border-zinc-800">
+<div class="text-xl font-black italic text-red-600 font-lexend tracking-tighter">IRON TRACK</div>
+<div class="flex items-center gap-2">
+<button class="text-zinc-400 p-2"><span class="material-symbols-outlined">search</span></button>
+<button class="text-zinc-400 p-2"><span class="material-symbols-outlined">notifications</span></button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="md:ml-64 pt-16 md:pt-20 pb-24 md:pb-0 min-h-screen">
+<div class="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop py-stack-md">
+<!-- Page Header -->
+<div class="mb-stack-lg border-b-2 border-surface-variant pb-stack-md flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
+<div>
+<h1 class="font-display-xl text-display-xl text-on-background uppercase italic">Exercise Library</h1>
+<p class="font-body-lg text-body-lg text-outline mt-2">Filter and find movements to destroy weakness.</p>
+</div>
+<div class="flex gap-2 w-full md:w-auto">
+<button class="flex-1 md:flex-none flex items-center justify-center gap-2 px-6 py-3 border-2 border-primary-container text-primary-container hover:bg-primary-container hover:text-black font-label-bold text-label-bold uppercase italic transition-colors">
+<span class="material-symbols-outlined text-sm">filter_list</span> Filter
+                    </button>
+<button class="flex-1 md:flex-none flex items-center justify-center gap-2 px-6 py-3 bg-primary-container text-black font-label-bold text-label-bold uppercase italic hover:bg-orange-600 transition-colors">
+<span class="material-symbols-outlined text-sm">add</span> Custom
+                    </button>
+</div>
+</div>
+<!-- Active Filters (Chips) -->
+<div class="flex flex-wrap gap-2 mb-stack-md">
+<div class="px-3 py-1 bg-primary-container text-black font-label-bold text-[12px] uppercase flex items-center gap-1 cursor-pointer hover:bg-orange-600 transition-colors">
+                    CHEST <span class="material-symbols-outlined text-[14px]">close</span>
+</div>
+<div class="px-3 py-1 bg-primary-container text-black font-label-bold text-[12px] uppercase flex items-center gap-1 cursor-pointer hover:bg-orange-600 transition-colors">
+                    BARBELL <span class="material-symbols-outlined text-[14px]">close</span>
+</div>
+<div class="px-3 py-1 border-2 border-surface-variant text-outline font-label-bold text-[12px] uppercase hover:border-primary hover:text-primary transition-colors cursor-pointer">
+                    CLEAR ALL
+                </div>
+</div>
+<!-- Bento Grid / Exercise Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-gutter">
+<!-- Card 1 -->
+<div class="bg-[#1A1A1A] border-2 border-black relative group overflow-hidden flex flex-col h-full border-t-primary-container">
+<!-- Muscle Highlight Image Area -->
+<div class="h-48 bg-surface-container relative border-b-2 border-surface-variant p-4 flex items-center justify-center overflow-hidden">
+<!-- Abstract interpretation of muscle diagram -->
+<div class="absolute inset-0 bg-gradient-to-br from-black/80 to-transparent z-10"></div>
+<img alt="Barbell Bench Press" class="absolute inset-0 w-full h-full object-cover opacity-50 grayscale group-hover:grayscale-0 transition-all duration-500" data-alt="Athlete performing a heavy barbell bench press in a dark, gritty gym setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0Snx2t70xWg8amhtx1pyXHCaNCAtJ1wI1QVDTixGX5rWVvMc-ehQY4RZ9qseh2U-OrfDZUsYcqrounHqji5T2bfgUhv9M26gVPDkYoNjOQzi_8SZ_ZPMLhwql9tY36QGKn5TOPQ-SOgwzqHVlucBmexNLl0FiT2DRU3IjNqv8bmAsAGmyMsQKIp2uZ60JIoXBs859VZQSauiwGrnrzt9csDvT0fffuqusuhiKWSCREOzJdKZdYx90RfdCg7-5KAIptKhdwwBX6eIx"/>
+<div class="relative z-20 text-center">
+<span class="material-symbols-outlined text-5xl text-primary-container opacity-80" style="font-variation-settings: 'FILL' 1;">accessibility_new</span>
+</div>
+</div>
+<div class="p-4 flex-grow flex flex-col">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline-md text-[24px] uppercase italic text-on-background leading-tight">Barbell Bench Press</h3>
+<button class="text-outline hover:text-primary transition-colors"><span class="material-symbols-outlined">favorite</span></button>
+</div>
+<div class="flex gap-2 mb-4">
+<span class="px-2 py-1 bg-surface-container text-on-surface font-label-bold text-[10px] uppercase border border-surface-variant">CHEST</span>
+<span class="px-2 py-1 bg-surface-container text-on-surface font-label-bold text-[10px] uppercase border border-surface-variant">TRICEPS</span>
+</div>
+<p class="font-body-md text-sm text-outline mb-4 flex-grow">Primary mass builder for the pectoral muscles. Focus on a controlled eccentric phase and explosive concentric.</p>
+<div class="mt-auto pt-4 border-t-2 border-surface-container">
+<button class="w-full py-2 border-2 border-outline-variant text-outline hover:border-primary hover:text-primary font-label-bold text-sm uppercase italic transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[16px]">swap_horiz</span> Swap Suggestion
+                            </button>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-[#1A1A1A] border-2 border-black relative group overflow-hidden flex flex-col h-full border-t-primary-container">
+<div class="h-48 bg-surface-container relative border-b-2 border-surface-variant p-4 flex items-center justify-center overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-br from-black/80 to-transparent z-10"></div>
+<img alt="Incline Dumbbell Press" class="absolute inset-0 w-full h-full object-cover opacity-50 grayscale group-hover:grayscale-0 transition-all duration-500" data-alt="Muscular athlete doing incline dumbbell press in a dimly lit, hardcore training facility" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDbwJnPVrc2J1deG4VZpZwI5sAUYq2Q_CW6S9oy4Bsu1nq-yJSYUOs87qOiIZFOSzgiCq-6pIVmWh4yInp5IEqVsMuIH5rOLn1trOGEo2RSzy7qMuNnOT2ga7_IFvXkkIk_5vUHPQqaG9PZtjejFrtOxxWoEAUMDkkdB44cNMWYTL1Oa57aSZjxAs-I4JdpBk355EI3z-HXPjpA7clXBgkpW8O8gfq-Qec8YYwBevbJ81qDDVI4B37FqJ0b3YlXFwudI-Qamwt9MpJo"/>
+<div class="relative z-20 text-center">
+<span class="material-symbols-outlined text-5xl text-primary-container opacity-80" style="font-variation-settings: 'FILL' 1;">fitness_center</span>
+</div>
+</div>
+<div class="p-4 flex-grow flex flex-col">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline-md text-[24px] uppercase italic text-on-background leading-tight">Incline Dumbbell Press</h3>
+<button class="text-outline hover:text-primary transition-colors"><span class="material-symbols-outlined">favorite_border</span></button>
+</div>
+<div class="flex gap-2 mb-4">
+<span class="px-2 py-1 bg-surface-container text-on-surface font-label-bold text-[10px] uppercase border border-surface-variant">UPPER CHEST</span>
+<span class="px-2 py-1 bg-surface-container text-on-surface font-label-bold text-[10px] uppercase border border-surface-variant">DELTS</span>
+</div>
+<p class="font-body-md text-sm text-outline mb-4 flex-grow">Isolates the upper pectoral fibers. Dumbbells allow for a deeper stretch and unilateral stabilization.</p>
+<div class="mt-auto pt-4 border-t-2 border-surface-container">
+<button class="w-full py-2 border-2 border-outline-variant text-outline hover:border-primary hover:text-primary font-label-bold text-sm uppercase italic transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[16px]">swap_horiz</span> Swap Suggestion
+                            </button>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-[#1A1A1A] border-2 border-black relative group overflow-hidden flex flex-col h-full border-t-surface-variant">
+<div class="h-48 bg-surface-container relative border-b-2 border-surface-variant p-4 flex items-center justify-center overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-br from-black/80 to-transparent z-10"></div>
+<img alt="Cable Crossover" class="absolute inset-0 w-full h-full object-cover opacity-50 grayscale group-hover:grayscale-0 transition-all duration-500" data-alt="Athlete performing cable crossovers with intense focus in an industrial gym environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCMO__I8BPy_Nj_Ua6umVpIHAeTSOOBBVn_KEJ8761s5jnUGO9eflUmZijdhEG0gU5Srk9zEZRt6SY3qrkhaIZcRWWZmN4-fbcg9rtO3TrpibeNhO3_tewafxVnM-yS1aTLjlifMivehLrBFHvIxqXpr8cTtZ2ZWjcn030vOKicco7io-n2ek2QAM7c87E-9BYs9TXZe_bJ97-7fDZrym_6iacSwWClPFT3TCrIqKO2EUCzfwb9NNeTB27D2ThQ5BBDOb79TiMMZDoq"/>
+<div class="relative z-20 text-center">
+<span class="material-symbols-outlined text-5xl text-outline opacity-80" style="font-variation-settings: 'FILL' 1;">sports_gymnastics</span>
+</div>
+</div>
+<div class="p-4 flex-grow flex flex-col">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline-md text-[24px] uppercase italic text-on-background leading-tight">Cable Crossover</h3>
+<button class="text-outline hover:text-primary transition-colors"><span class="material-symbols-outlined">favorite_border</span></button>
+</div>
+<div class="flex gap-2 mb-4">
+<span class="px-2 py-1 bg-surface-container text-on-surface font-label-bold text-[10px] uppercase border border-surface-variant">CHEST</span>
+<span class="px-2 py-1 bg-surface-container text-on-surface font-label-bold text-[10px] uppercase border border-surface-variant">ISOLATION</span>
+</div>
+<p class="font-body-md text-sm text-outline mb-4 flex-grow">Constant tension throughout the movement. Excellent for a deep stretch and peak contraction at the end of a workout.</p>
+<div class="mt-auto pt-4 border-t-2 border-surface-container">
+<button class="w-full py-2 border-2 border-outline-variant text-outline hover:border-primary hover:text-primary font-label-bold text-sm uppercase italic transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[16px]">swap_horiz</span> Swap Suggestion
+                            </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Load More / Pagination -->
+<div class="mt-stack-lg flex justify-center">
+<button class="px-8 py-4 bg-transparent border-2 border-surface-variant text-on-surface hover:border-primary-container hover:text-primary-container font-label-bold text-label-bold uppercase italic transition-all duration-200">
+                    LOAD MORE HEAVY METAL
+                </button>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile) - Suppressed as this is a specific feature page within Workouts, not a primary destination itself in the mobile view context, but keeping it as it represents 'WORKOUTS' section generally based on intent -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 bg-black border-t-2 border-zinc-800 flex justify-around items-center h-16 pb-safe">
+<a class="flex flex-col items-center justify-center w-full h-full text-red-600" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">fitness_center</span>
+<span class="text-[10px] font-lexend font-bold mt-1">WORKOUTS</span>
+</a>
+<a class="flex flex-col items-center justify-center w-full h-full text-zinc-500" href="#">
+<span class="material-symbols-outlined">leaderboard</span>
+<span class="text-[10px] font-lexend font-bold mt-1">ANALYTICS</span>
+</a>
+<a class="flex flex-col items-center justify-center w-full h-full text-zinc-500" href="#">
+<span class="material-symbols-outlined">groups</span>
+<span class="text-[10px] font-lexend font-bold mt-1">COMPETE</span>
+</a>
+<a class="flex flex-col items-center justify-center w-full h-full text-zinc-500" href="#">
+<span class="material-symbols-outlined">history</span>
+<span class="text-[10px] font-lexend font-bold mt-1">HISTORY</span>
+</a>
+</nav>
+<!-- Footer (Web) -->
+<footer class="hidden md:flex w-full py-8 px-12 bg-black border-t-2 border-zinc-800 flex-col md:flex-row justify-between items-center gap-4 ml-0 md:ml-64 w-[calc(100%-16rem)]">
+<div class="text-red-600 font-lexend text-xs font-bold uppercase tracking-widest">
+            © 2024 IRON TRACK INDUSTRIAL FITNESS. NO WEAKNESS.
+        </div>
+<div class="flex gap-6">
+<a class="font-lexend text-xs font-bold uppercase tracking-widest text-zinc-600 hover:text-white opacity-80 hover:opacity-100 transition-opacity" href="#">PRIVACY</a>
+<a class="font-lexend text-xs font-bold uppercase tracking-widest text-zinc-600 hover:text-white opacity-80 hover:opacity-100 transition-opacity" href="#">TERMS OF BATTLE</a>
+<a class="font-lexend text-xs font-bold uppercase tracking-widest text-zinc-600 hover:text-white opacity-80 hover:opacity-100 transition-opacity" href="#">SUPPORT</a>
+<a class="font-lexend text-xs font-bold uppercase tracking-widest text-zinc-600 hover:text-white opacity-80 hover:opacity-100 transition-opacity" href="#">API</a>
+</div>
+</footer>
+</body></html>

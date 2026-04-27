@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>IRON TRACK | Performance Lab</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary-fixed": "#e2e2e2",
+                      "on-primary-fixed-variant": "#930100",
+                      "inverse-surface": "#e5e2e1",
+                      "tertiary-fixed-dim": "#c6c6c7",
+                      "surface-variant": "#353534",
+                      "outline": "#b08781",
+                      "on-primary": "#690000",
+                      "on-secondary-container": "#541100",
+                      "on-primary-container": "#fff7f5",
+                      "surface-bright": "#393939",
+                      "outline-variant": "#5f3f3a",
+                      "on-secondary-fixed": "#3b0900",
+                      "inverse-primary": "#c00000",
+                      "surface-container": "#201f1f",
+                      "secondary-fixed": "#ffdbd1",
+                      "background": "#131313",
+                      "secondary": "#ffb5a0",
+                      "tertiary": "#c6c6c7",
+                      "on-tertiary-container": "#f8f8f8",
+                      "surface-container-high": "#2a2a2a",
+                      "on-secondary-fixed-variant": "#872000",
+                      "on-background": "#e5e2e1",
+                      "surface": "#131313",
+                      "on-error": "#690005",
+                      "primary-container": "#e60000",
+                      "tertiary-container": "#717272",
+                      "primary-fixed-dim": "#ffb4a8",
+                      "on-tertiary-fixed-variant": "#454747",
+                      "secondary-container": "#ff5625",
+                      "on-tertiary-fixed": "#1a1c1c",
+                      "error-container": "#93000a",
+                      "on-secondary": "#601400",
+                      "surface-container-low": "#1c1b1b",
+                      "error": "#ffb4ab",
+                      "surface-dim": "#131313",
+                      "primary": "#ffb4a8",
+                      "on-surface": "#e5e2e1",
+                      "on-primary-fixed": "#410000",
+                      "surface-container-highest": "#353534",
+                      "secondary-fixed-dim": "#ffb5a0",
+                      "on-error-container": "#ffdad6",
+                      "primary-fixed": "#ffdad4",
+                      "inverse-on-surface": "#313030",
+                      "surface-tint": "#ffb4a8",
+                      "on-tertiary": "#2f3131",
+                      "on-surface-variant": "#e9bcb5",
+                      "surface-container-lowest": "#0e0e0e"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "stack-sm": "8px",
+                      "stack-md": "24px",
+                      "stack-lg": "48px",
+                      "margin-mobile": "20px",
+                      "gutter": "16px",
+                      "margin-desktop": "40px",
+                      "base-unit": "8px"
+              },
+              "fontFamily": {
+                      "display-xl": [
+                              "Lexend"
+                      ],
+                      "headline-md": [
+                              "Lexend"
+                      ],
+                      "label-bold": [
+                              "Lexend"
+                      ],
+                      "body-lg": [
+                              "Lexend"
+                      ],
+                      "headline-lg": [
+                              "Lexend"
+                      ],
+                      "body-md": [
+                              "Lexend"
+                      ]
+              },
+              "fontSize": {
+                      "display-xl": [
+                              "80px",
+                              {
+                                      "lineHeight": "1.0",
+                                      "letterSpacing": "-0.04em",
+                                      "fontWeight": "900"
+                              }
+                      ],
+                      "headline-md": [
+                              "32px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "label-bold": [
+                              "14px",
+                              {
+                                      "lineHeight": "1.0",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "letterSpacing": "0",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "800"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.5",
+                                      "letterSpacing": "0",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+            },
+          },
+        }
+      </script>
+<style>
+        /* Hide scrollbar for clean brutalist look */
+        ::-webkit-scrollbar { width: 0px; background: transparent; }
+      </style>
+</head>
+<body class="bg-background text-on-surface font-body-md selection:bg-primary-container selection:text-black min-h-screen flex flex-col">
+<!-- 
+      Navigation Shell Suppressed:
+      Per instructions, TopAppBar and SideNavBar are excluded on Linear/Transactional 
+      pages like Login/Sign-up to prioritize the content canvas.
+    -->
+<main class="flex-grow flex flex-col md:flex-row w-full h-full relative overflow-hidden">
+<!-- Left Hero Section (Hidden on Mobile, 50% on Desktop) -->
+<section class="hidden md:flex md:w-1/2 relative bg-surface-container-lowest border-r-2 border-surface-container-high">
+<div class="absolute inset-0 bg-black/40 z-10 mix-blend-multiply"></div>
+<img alt="Athlete Background" class="absolute inset-0 w-full h-full object-cover grayscale opacity-80" data-alt="high contrast cinematic shot of a muscular athlete lifting heavy iron weights in a dark industrial gym setting, intense red rim lighting, raw gritty texture, sweat and determination" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAF115uFsT1Nfl9_J53HnhRyDvd90vx19MKBRLZQvyQDe1I1E6AoikQVI6ex7go9WEiCC1Ih3Z5y91IFoxm3Iczy-KzNaXVDfuLzSznH4ZG8ID4mWj1EwcMRfSu547JdwNF-VCryiSrLMtWBQ7uJJ2Anz7dRD91ShCpPU_pt-1_RN2oJsZP3ydItN-lQxPxhtwWGGsqYkiVQ3PbwaV6ObC5aROKw6C83gpAEQ1KQm99Ml7P6W3aTKejDjgNbFCRQ2bivTRF6pJaKIqX"/>
+<!-- Brutalist Overlay Element -->
+<div class="relative z-20 w-full h-full flex flex-col justify-end p-margin-desktop pb-24 bg-gradient-to-t from-background via-background/50 to-transparent">
+<div class="border-l-4 border-primary-container pl-6">
+<h1 class="font-display-xl text-display-xl text-on-surface uppercase italic mb-stack-sm">
+                        Forge<br/>
+<span class="text-primary-container">Iron.</span>
+</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-md">
+                        The Performance Lab demands everything. Enter your credentials to access elite training protocols and analytics.
+                    </p>
+</div>
+</div>
+</section>
+<!-- Right Authentication Form Section -->
+<section class="w-full md:w-1/2 min-h-screen flex flex-col justify-center items-center p-margin-mobile md:p-margin-desktop relative z-20">
+<!-- Mobile Background Fallback -->
+<div class="md:hidden absolute inset-0 z-0">
+<div class="absolute inset-0 bg-background/90 z-10"></div>
+<img alt="Athlete Background Mobile" class="absolute inset-0 w-full h-full object-cover grayscale opacity-30" data-alt="high contrast cinematic shot of a muscular athlete lifting heavy iron weights in a dark industrial gym setting, intense red rim lighting, raw gritty texture, sweat and determination" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCL_4K_XeT8Yxk2J6CWuxo4mA6Ujbn59JLjopYzLADbPvgIIK2vN3_JPNxvwdyvyMTaVams31LA27qHLtd5kal81qxQ4RbrxPryEMM2sjIUcOGAUIbDc-V9ai2hHuaOFj_8mqUhNKxiux5qRaa3WSEk4CV_vIRSBqY_tUTJTlxEbimsi5OhJSOYIczMN50zt8Sf-LY7Qlxk3Xoc3B6K0toEIcngmGmbKGGVNGwZ9kZtjHuhVYokWtUGSE4TsK960BVmsWJLi0FMSCpC"/>
+</div>
+<div class="w-full max-w-md relative z-10 space-y-stack-md">
+<!-- Header -->
+<div class="text-center mb-stack-lg">
+<h2 class="font-headline-lg text-headline-lg text-primary-container uppercase italic tracking-tighter">IRON TRACK</h2>
+<h3 class="font-headline-md text-headline-md text-on-surface uppercase mt-stack-sm">Identify</h3>
+</div>
+<!-- Form Container -->
+<form class="space-y-stack-md bg-surface-container-low p-8 border-2 border-surface-container-high relative">
+<!-- Brutalist Corner Accents -->
+<div class="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-primary-container -mt-[2px] -ml-[2px]"></div>
+<div class="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-primary-container -mb-[2px] -mr-[2px]"></div>
+<!-- Input Group: Email -->
+<div class="space-y-2 group">
+<label class="block font-label-bold text-label-bold text-on-surface-variant uppercase group-focus-within:text-primary-container group-focus-within:italic transition-all duration-200" for="email">Operative Identity</label>
+<div class="relative">
+<input class="w-full bg-black border-b-2 border-surface-container-high focus:border-primary-container text-on-surface font-body-lg text-body-lg p-3 outline-none transition-colors placeholder-surface-container-highest" id="email" placeholder="athlete@irontrack.net" required="" type="email"/>
+<span class="absolute right-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-surface-container-highest group-focus-within:text-primary-container transition-colors" data-icon="fingerprint">fingerprint</span>
+</div>
+</div>
+<!-- Input Group: Password -->
+<div class="space-y-2 group">
+<label class="block font-label-bold text-label-bold text-on-surface-variant uppercase group-focus-within:text-primary-container group-focus-within:italic transition-all duration-200" for="password">Clearance Code</label>
+<div class="relative">
+<input class="w-full bg-black border-b-2 border-surface-container-high focus:border-primary-container text-on-surface font-body-lg text-body-lg p-3 outline-none transition-colors placeholder-surface-container-highest" id="password" placeholder="••••••••" required="" type="password"/>
+<span class="absolute right-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-surface-container-highest group-focus-within:text-primary-container transition-colors" data-icon="key">key</span>
+</div>
+</div>
+<!-- Options -->
+<div class="flex items-center justify-between pt-2">
+<label class="flex items-center space-x-3 cursor-pointer group">
+<div class="relative flex items-center justify-center w-5 h-5 border-2 border-surface-container-high group-hover:border-primary-container transition-colors">
+<input class="peer absolute opacity-0 w-full h-full cursor-pointer" type="checkbox"/>
+<div class="w-full h-full bg-transparent peer-checked:bg-primary-container transition-colors"></div>
+</div>
+<span class="font-body-md text-body-md text-on-surface-variant uppercase group-hover:text-on-surface transition-colors">Lock Protocol</span>
+</label>
+<a class="font-label-bold text-label-bold text-primary-container hover:text-inverse-primary uppercase italic transition-colors" href="#">Lost Code?</a>
+</div>
+<!-- Submit Button -->
+<button class="w-full bg-primary-container text-black font-label-bold text-label-bold uppercase italic font-black py-4 px-6 hover:bg-secondary-container active:bg-inverse-primary transition-colors flex justify-center items-center gap-2 mt-stack-md" type="submit">
+                        Initiate Sequence
+                        <span class="material-symbols-outlined font-black" data-icon="arrow_forward" style="font-variation-settings: 'FILL' 1;">arrow_forward</span>
+</button>
+</form>
+<!-- Divider -->
+<div class="flex items-center justify-center gap-4 py-4 opacity-50">
+<div class="h-[2px] w-full bg-surface-container-high"></div>
+<span class="font-label-bold text-label-bold text-on-surface-variant uppercase whitespace-nowrap">External Breach</span>
+<div class="h-[2px] w-full bg-surface-container-high"></div>
+</div>
+<!-- Social Logins -->
+<div class="grid grid-cols-2 gap-gutter">
+<button class="w-full border-2 border-surface-container-high bg-transparent text-on-surface font-label-bold text-label-bold uppercase italic py-3 flex justify-center items-center gap-2 hover:border-primary-container hover:text-primary-container hover:bg-black transition-all" type="button">
+<svg class="w-5 h-5 fill-current" viewbox="0 0 24 24"><path d="M12.545,10.239v3.821h5.445c-0.712,2.315-2.647,3.972-5.445,3.972c-3.332,0-6.033-2.701-6.033-6.032s2.701-6.032,6.033-6.032c1.498,0,2.866,0.549,3.921,1.453l2.814-2.814C17.503,2.988,15.139,2,12.545,2C7.021,2,2.543,6.477,2.543,12s4.478,10,10.002,10c8.396,0,10.249-7.85,9.426-11.748L12.545,10.239z"></path></svg>
+                        Google
+                    </button>
+<button class="w-full border-2 border-surface-container-high bg-transparent text-on-surface font-label-bold text-label-bold uppercase italic py-3 flex justify-center items-center gap-2 hover:border-primary-container hover:text-primary-container hover:bg-black transition-all" type="button">
+<svg class="w-5 h-5 fill-current" viewbox="0 0 24 24"><path d="M17.05 20.28c-.98.95-2.05.88-3.08.4-1.09-.5-2.08-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.19 2.29-.88 3.56-.88 1.96.11 3.26.96 4.13 2.15-3.52 1.83-2.82 6.57.54 7.82-.79 1.44-1.63 2.59-3.31 3.08zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"></path></svg>
+                        Apple
+                    </button>
+</div>
+<!-- Registration Link -->
+<div class="text-center mt-stack-lg">
+<p class="font-body-md text-body-md text-on-surface-variant">
+                        Unregistered entity? 
+                        <a class="text-primary-container uppercase font-bold italic hover:text-inverse-primary border-b-2 border-transparent hover:border-inverse-primary transition-all ml-2" href="#">Enlist Now</a>
+</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer Shared Component -->
+<footer class="w-full py-8 px-12 flex flex-col md:flex-row justify-between items-center gap-4 bg-black full-width border-t-2 border-zinc-800 z-30 relative">
+<div class="text-red-600 font-lexend text-xs font-bold uppercase tracking-widest">
+            © 2024 IRON TRACK INDUSTRIAL FITNESS. NO WEAKNESS.
+        </div>
+<div class="flex flex-wrap justify-center gap-6">
+<a class="text-zinc-600 font-lexend text-xs font-bold uppercase tracking-widest opacity-80 hover:opacity-100 hover:text-white transition-opacity" href="#">PRIVACY</a>
+<a class="text-zinc-600 font-lexend text-xs font-bold uppercase tracking-widest opacity-80 hover:opacity-100 hover:text-white transition-opacity" href="#">TERMS OF BATTLE</a>
+<a class="text-zinc-600 font-lexend text-xs font-bold uppercase tracking-widest opacity-80 hover:opacity-100 hover:text-white transition-opacity" href="#">SUPPORT</a>
+<a class="text-zinc-600 font-lexend text-xs font-bold uppercase tracking-widest opacity-80 hover:opacity-100 hover:text-white transition-opacity" href="#">API</a>
+</div>
+</footer>
+</body></html>

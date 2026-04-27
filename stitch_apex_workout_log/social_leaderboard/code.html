@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>IRON TRACK - Social &amp; Ranking</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "tertiary-fixed": "#e2e2e2",
+                        "on-primary-fixed-variant": "#930100",
+                        "inverse-surface": "#e5e2e1",
+                        "tertiary-fixed-dim": "#c6c6c7",
+                        "surface-variant": "#353534",
+                        "outline": "#b08781",
+                        "on-primary": "#690000",
+                        "on-secondary-container": "#541100",
+                        "on-primary-container": "#fff7f5",
+                        "surface-bright": "#393939",
+                        "outline-variant": "#5f3f3a",
+                        "on-secondary-fixed": "#3b0900",
+                        "inverse-primary": "#c00000",
+                        "surface-container": "#201f1f",
+                        "secondary-fixed": "#ffdbd1",
+                        "background": "#131313",
+                        "secondary": "#ffb5a0",
+                        "tertiary": "#c6c6c7",
+                        "on-tertiary-container": "#f8f8f8",
+                        "surface-container-high": "#2a2a2a",
+                        "on-secondary-fixed-variant": "#872000",
+                        "on-background": "#e5e2e1",
+                        "surface": "#131313",
+                        "on-error": "#690005",
+                        "primary-container": "#e60000",
+                        "tertiary-container": "#717272",
+                        "primary-fixed-dim": "#ffb4a8",
+                        "on-tertiary-fixed-variant": "#454747",
+                        "secondary-container": "#ff5625",
+                        "on-tertiary-fixed": "#1a1c1c",
+                        "error-container": "#93000a",
+                        "on-secondary": "#601400",
+                        "surface-container-low": "#1c1b1b",
+                        "error": "#ffb4ab",
+                        "surface-dim": "#131313",
+                        "primary": "#ffb4a8",
+                        "on-surface": "#e5e2e1",
+                        "on-primary-fixed": "#410000",
+                        "surface-container-highest": "#353534",
+                        "secondary-fixed-dim": "#ffb5a0",
+                        "on-error-container": "#ffdad6",
+                        "primary-fixed": "#ffdad4",
+                        "inverse-on-surface": "#313030",
+                        "surface-tint": "#ffb4a8",
+                        "on-tertiary": "#2f3131",
+                        "on-surface-variant": "#e9bcb5",
+                        "surface-container-lowest": "#0e0e0e"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    spacing: {
+                        "stack-sm": "8px",
+                        "stack-md": "24px",
+                        "stack-lg": "48px",
+                        "margin-mobile": "20px",
+                        "gutter": "16px",
+                        "margin-desktop": "40px",
+                        "base-unit": "8px"
+                    },
+                    fontFamily: {
+                        "display-xl": ["Lexend"],
+                        "headline-md": ["Lexend"],
+                        "label-bold": ["Lexend"],
+                        "body-lg": ["Lexend"],
+                        "headline-lg": ["Lexend"],
+                        "body-md": ["Lexend"]
+                    },
+                    fontSize: {
+                        "display-xl": ["80px", { lineHeight: "1.0", letterSpacing: "-0.04em", fontWeight: "900" }],
+                        "headline-md": ["32px", { lineHeight: "1.2", letterSpacing: "-0.01em", fontWeight: "700" }],
+                        "label-bold": ["14px", { lineHeight: "1.0", letterSpacing: "0.05em", fontWeight: "700" }],
+                        "body-lg": ["18px", { lineHeight: "1.6", letterSpacing: "0", fontWeight: "400" }],
+                        "headline-lg": ["48px", { lineHeight: "1.1", letterSpacing: "-0.02em", fontWeight: "800" }],
+                        "body-md": ["16px", { lineHeight: "1.5", letterSpacing: "0", fontWeight: "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: #131313; color: #e5e2e1; }
+        .brutal-border { border: 2px solid #1a1a1a; }
+        .brutal-border-active { border: 2px solid #e60000; }
+        .brutal-border-b { border-bottom: 2px solid #1a1a1a; }
+        .brutal-border-r { border-right: 2px solid #1a1a1a; }
+        .clip-slant { clip-path: polygon(0 0, 100% 0, 95% 100%, 0% 100%); }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md text-body-md min-h-screen flex flex-col md:flex-row">
+<!-- TopAppBar (Mobile & Global) -->
+<header class="bg-black text-red-600 font-lexend uppercase tracking-tighter docked full-width top-0 border-b-2 border-zinc-800 border-b-2 border-zinc-800 flat no-shadows fixed top-0 left-0 w-full z-50 flex justify-between items-center px-6 h-20 md:hidden">
+<div class="text-3xl font-black italic text-red-600">IRON TRACK</div>
+<div class="flex gap-4">
+<button class="text-zinc-400 hover:text-red-500 hover:bg-zinc-900 transition-all duration-75 active:scale-95 p-2">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="text-zinc-400 hover:text-red-500 hover:bg-zinc-900 transition-all duration-75 active:scale-95 p-2">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</header>
+<!-- SideNavBar (Desktop) -->
+<nav class="bg-zinc-900 text-red-600 font-lexend font-black italic docked left-0 h-full w-64 border-r-2 border-zinc-800 border-r-2 border-zinc-800 flat no-shadows fixed left-0 top-0 h-screen w-64 z-40 hidden md:flex flex-col pt-8">
+<div class="px-6 mb-8">
+<div class="text-red-600 font-black text-headline-md font-headline-md">IRON TRACK</div>
+</div>
+<div class="px-6 py-4 border-b-2 border-zinc-800 mb-4 flex items-center gap-4">
+<div class="w-12 h-12 bg-zinc-800 border-2 border-red-600 overflow-hidden">
+<img alt="Athlete Profile" class="w-full h-full object-cover" data-alt="close up of a determined athlete's face in high contrast dramatic lighting, sweat on brow, intense focus" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0hIsvhDJPnG4puu01j7GjAfFWLlgH35QUOWOsRnSlPBUNCvRtg-1IaGVsCWcaFXAruhZZh5lDArgTxNkayEUuTfgtqEfiRwfH8VR9rv9xB97DiXXVwS0DJ7TcDrh7ol0C7tKGL46B4eVHAG087DYXx-6ukX42-u3GFm8HvmxNyuwb099FuwILfY_peHMFmr4P3oEGubAuL4ZuqeK4UkcpACkqjy0LWkvqlUGkG0roRNiHLraWJxlMGkiLgEhBWnKV--A46IYKiXGu"/>
+</div>
+<div>
+<div class="text-white text-label-bold font-label-bold uppercase">ELITE ATHLETE</div>
+<div class="text-red-600 text-xs uppercase tracking-widest mt-1">RANK: PLATINUM</div>
+</div>
+</div>
+<ul class="flex flex-col flex-1">
+<li>
+<a class="flex items-center gap-4 px-6 py-4 text-zinc-500 hover:text-white hover:bg-zinc-800 scale-105-on-hover transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="fitness_center">fitness_center</span>
+<span>WORKOUTS</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-4 px-6 py-4 text-zinc-500 hover:text-white hover:bg-zinc-800 scale-105-on-hover transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="leaderboard">leaderboard</span>
+<span>ANALYTICS</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-4 px-6 py-4 bg-red-600 text-black border-l-4 border-white scale-105-on-hover transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="groups">groups</span>
+<span>COMPETE</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-4 px-6 py-4 text-zinc-500 hover:text-white hover:bg-zinc-800 scale-105-on-hover transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<span>HISTORY</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-4 px-6 py-4 text-zinc-500 hover:text-white hover:bg-zinc-800 scale-105-on-hover transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>SETTINGS</span>
+</a>
+</li>
+</ul>
+</nav>
+<!-- Main Content -->
+<main class="flex-1 mt-20 md:mt-0 md:ml-64 p-margin-mobile md:p-margin-desktop bg-surface flex flex-col gap-stack-lg">
+<!-- Header -->
+<div class="flex flex-col gap-2">
+<h1 class="text-display-xl font-display-xl text-white uppercase italic tracking-tighter">BATTLEGROUND</h1>
+<p class="text-body-lg font-body-lg text-tertiary uppercase tracking-widest border-l-2 border-primary-container pl-4">Prove your worth. Crush the weak.</p>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Global Leaderboard (Span 8) -->
+<div class="col-span-1 md:col-span-8 bg-surface-container border-2 border-surface-variant p-6 relative overflow-hidden">
+<!-- Decorative element -->
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary-container opacity-10 blur-3xl"></div>
+<div class="flex justify-between items-end border-b-2 border-surface-variant pb-4 mb-6 relative z-10">
+<h2 class="text-headline-md font-headline-md text-white uppercase italic">Global Top 5</h2>
+<span class="text-label-bold font-label-bold text-primary-container uppercase bg-on-primary-fixed bg-opacity-30 px-3 py-1 border border-primary-container">Season 4</span>
+</div>
+<div class="flex flex-col gap-2">
+<!-- Rank 1 -->
+<div class="flex items-center bg-surface-bright border-l-4 border-primary-container p-3 hover:bg-surface-variant transition-colors group">
+<div class="w-10 text-center font-headline-md text-headline-md text-primary-container italic">1</div>
+<div class="w-12 h-12 bg-black ml-4 border border-surface-variant overflow-hidden">
+<img alt="User 1" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all" data-alt="muscular athlete lifting heavy barbell in dark industrial gym with dramatic red lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAvnxR2Rdlb_DfEZD6VPTijp1_XVX1DYpkDZ3J7WOcsrvYH4JdPMm67akv1466Z4dz8XiiZEVouofcm5UZvJFS6nJ7CqWia_KkiVcPn6tQQNopgNWITWskZ-plRe2aWAqgtnKwMLMruviR-DtBwENktzk-lmLE8uRdWHKuynMK2mCpbwGOkRaT2FC7Af-MFvDuo2noTgwoA5JO5JXaJMi9miM0pCsv7Qzy0Qk3AlKBwKfKPD6okrEnKH91vryCIr__RqCwuKuM3OEni"/>
+</div>
+<div class="ml-4 flex-1">
+<div class="text-white font-label-bold text-label-bold uppercase">IRON_BEAST</div>
+<div class="text-tertiary text-xs uppercase tracking-widest">Score: 94,200</div>
+</div>
+<div class="text-right">
+<span class="material-symbols-outlined text-primary-container" data-icon="local_fire_department" data-weight="fill">local_fire_department</span>
+</div>
+</div>
+<!-- Rank 2 -->
+<div class="flex items-center bg-surface-container-high border-l-4 border-surface-variant p-3 hover:bg-surface-variant transition-colors group">
+<div class="w-10 text-center font-headline-md text-headline-md text-white italic">2</div>
+<div class="w-12 h-12 bg-black ml-4 border border-surface-variant overflow-hidden">
+<div class="w-full h-full bg-surface-variant flex items-center justify-center text-white">VT</div>
+</div>
+<div class="ml-4 flex-1">
+<div class="text-white font-label-bold text-label-bold uppercase">VOID_TITAN</div>
+<div class="text-tertiary text-xs uppercase tracking-widest">Score: 91,450</div>
+</div>
+</div>
+<!-- Rank 3 -->
+<div class="flex items-center bg-surface-container-high border-l-4 border-surface-variant p-3 hover:bg-surface-variant transition-colors group">
+<div class="w-10 text-center font-headline-md text-headline-md text-white italic">3</div>
+<div class="w-12 h-12 bg-black ml-4 border border-surface-variant overflow-hidden">
+<div class="w-full h-full bg-surface-variant flex items-center justify-center text-white">SK</div>
+</div>
+<div class="ml-4 flex-1">
+<div class="text-white font-label-bold text-label-bold uppercase">SKULL_CRUSHER</div>
+<div class="text-tertiary text-xs uppercase tracking-widest">Score: 88,900</div>
+</div>
+</div>
+<!-- Rank 4 -->
+<div class="flex items-center bg-surface-container-high border-l-4 border-surface-variant p-3 hover:bg-surface-variant transition-colors group">
+<div class="w-10 text-center font-headline-md text-headline-md text-tertiary italic">4</div>
+<div class="w-12 h-12 bg-black ml-4 border border-surface-variant overflow-hidden">
+<div class="w-full h-full bg-surface-variant flex items-center justify-center text-white">AX</div>
+</div>
+<div class="ml-4 flex-1">
+<div class="text-tertiary font-label-bold text-label-bold uppercase">APEX_PREDATOR</div>
+<div class="text-surface-variant text-xs uppercase tracking-widest">Score: 85,100</div>
+</div>
+</div>
+<!-- Rank 5 -->
+<div class="flex items-center bg-surface-container-high border-l-4 border-surface-variant p-3 hover:bg-surface-variant transition-colors group">
+<div class="w-10 text-center font-headline-md text-headline-md text-tertiary italic">5</div>
+<div class="w-12 h-12 bg-black ml-4 border border-surface-variant overflow-hidden">
+<div class="w-full h-full bg-surface-variant flex items-center justify-center text-white">DW</div>
+</div>
+<div class="ml-4 flex-1">
+<div class="text-tertiary font-label-bold text-label-bold uppercase">DEAD_WEIGHT</div>
+<div class="text-surface-variant text-xs uppercase tracking-widest">Score: 84,300</div>
+</div>
+</div>
+</div>
+<div class="mt-6 flex justify-center">
+<button class="bg-primary-container text-black font-label-bold text-label-bold uppercase italic px-8 py-4 hover:bg-secondary-container transition-colors brutal-border border-black">
+                        LOGIN TO SEE MORE
+                    </button>
+</div>
+</div>
+<!-- Squad & Challenges (Span 4) -->
+<div class="col-span-1 md:col-span-4 flex flex-col gap-gutter">
+<!-- Squad Mini-Leaderboard -->
+<div class="bg-surface-container border-2 border-surface-variant p-6 flex-1">
+<div class="flex justify-between items-end border-b-2 border-surface-variant pb-2 mb-4">
+<h3 class="text-body-lg font-body-lg text-white uppercase italic">BLOOD PACT</h3>
+<span class="material-symbols-outlined text-tertiary" data-icon="groups">groups</span>
+</div>
+<div class="flex flex-col gap-3">
+<div class="flex items-center justify-between bg-surface-bright p-2 border-l-2 border-primary-container">
+<div class="flex items-center gap-3">
+<span class="text-white text-sm font-bold w-4">1</span>
+<span class="text-white text-sm uppercase">YOU</span>
+</div>
+<span class="text-primary-container text-sm font-bold">12,400</span>
+</div>
+<div class="flex items-center justify-between bg-surface-container-high p-2 border-l-2 border-surface-variant">
+<div class="flex items-center gap-3">
+<span class="text-tertiary text-sm font-bold w-4">2</span>
+<span class="text-tertiary text-sm uppercase">J_STEELE</span>
+</div>
+<span class="text-tertiary text-sm font-bold">11,200</span>
+</div>
+<div class="flex items-center justify-between bg-surface-container-high p-2 border-l-2 border-surface-variant">
+<div class="flex items-center gap-3">
+<span class="text-tertiary text-sm font-bold w-4">3</span>
+<span class="text-tertiary text-sm uppercase">M_FURY</span>
+</div>
+<span class="text-tertiary text-sm font-bold">9,850</span>
+</div>
+</div>
+<button class="w-full mt-4 border-2 border-primary-container text-primary-container font-label-bold text-label-bold uppercase py-2 hover:bg-primary-container hover:text-black transition-colors">
+                        INVITE WARRIORS
+                    </button>
+</div>
+<!-- Challenges -->
+<div class="bg-surface-container border-2 border-surface-variant p-6 flex-1">
+<div class="flex justify-between items-end border-b-2 border-surface-variant pb-2 mb-4">
+<h3 class="text-body-lg font-body-lg text-white uppercase italic">ACTIVE DIRECTIVES</h3>
+<span class="material-symbols-outlined text-tertiary" data-icon="military_tech">military_tech</span>
+</div>
+<div class="flex flex-col gap-4">
+<!-- Challenge 1 -->
+<div>
+<div class="flex justify-between items-center mb-1">
+<span class="text-white text-sm uppercase font-bold">HELL WEEK: 100K LBS</span>
+<span class="text-primary-container text-xs">80%</span>
+</div>
+<!-- Mechanical Progress Bar -->
+<div class="h-4 flex gap-1 bg-black p-1 border border-surface-variant">
+<div class="flex-1 bg-primary-container"></div>
+<div class="flex-1 bg-primary-container"></div>
+<div class="flex-1 bg-primary-container"></div>
+<div class="flex-1 bg-primary-container"></div>
+<div class="flex-1 bg-surface-variant"></div>
+</div>
+</div>
+<!-- Challenge 2 -->
+<div>
+<div class="flex justify-between items-center mb-1">
+<span class="text-tertiary text-sm uppercase font-bold">5 DAY STREAK</span>
+<span class="text-tertiary text-xs">40%</span>
+</div>
+<div class="h-4 flex gap-1 bg-black p-1 border border-surface-variant">
+<div class="flex-1 bg-tertiary"></div>
+<div class="flex-1 bg-tertiary"></div>
+<div class="flex-1 bg-surface-variant"></div>
+<div class="flex-1 bg-surface-variant"></div>
+<div class="flex-1 bg-surface-variant"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-black text-red-600 font-lexend text-xs font-bold uppercase tracking-widest full-width border-t-2 border-zinc-800 flat no-shadows w-full py-8 px-12 flex flex-col md:flex-row justify-between items-center gap-4 mt-auto md:ml-64 relative z-50">
+<div class="text-red-600">© 2024 IRON TRACK INDUSTRIAL FITNESS. NO WEAKNESS.</div>
+<div class="flex gap-6">
+<a class="text-zinc-600 hover:text-white opacity-80 hover:opacity-100 transition-all" href="#">PRIVACY</a>
+<a class="text-zinc-600 hover:text-white opacity-80 hover:opacity-100 transition-all" href="#">TERMS OF BATTLE</a>
+<a class="text-zinc-600 hover:text-white opacity-80 hover:opacity-100 transition-all" href="#">SUPPORT</a>
+<a class="text-zinc-600 hover:text-white opacity-80 hover:opacity-100 transition-all" href="#">API</a>
+</div>
+</footer>
+</body></html>
