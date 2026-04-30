@@ -48,7 +48,7 @@ function CalendarHeatmap({ sessions }: { sessions: Session[] }) {
   return (
     <div className="bg-surface-container-low border-2 border-black p-6 flex flex-col gap-4 md:col-span-8">
       <div className="flex justify-between items-center">
-        <h2 className="font-black text-xs uppercase tracking-widest text-on-surface flex items-center gap-2">
+        <h2 className="font-headline-md text-headline-md italic uppercase text-on-surface flex items-center gap-2">
           <span className="material-symbols-outlined text-primary-container text-base" style={{ fontVariationSettings: "'FILL' 1" }}>calendar_month</span>
           VOLUME HEATMAP
         </h2>
@@ -108,14 +108,14 @@ function StreakCard({ streak, onFreeze }: { streak: Streak | null; onFreeze: () 
   return (
     <div className="bg-surface-container-low border-2 border-black border-t-4 border-t-primary-container p-6 flex flex-col gap-4 md:col-span-4 relative overflow-hidden">
       <div className="flex justify-between items-start">
-        <h2 className="font-black text-xs uppercase tracking-widest text-on-surface flex items-center gap-2">
+        <h2 className="font-headline-md text-headline-md italic uppercase text-on-surface flex items-center gap-2">
           <span className="material-symbols-outlined text-primary-container text-base" style={{ fontVariationSettings: "'FILL' 1" }}>local_fire_department</span>
           ACTIVE STREAK
         </h2>
         {(streak?.freeze_tokens ?? 0) > 0 && (
           <button
             onClick={onFreeze}
-            className="flex items-center gap-1 bg-primary-container text-black text-[10px] font-black uppercase px-2 py-1 hover:bg-secondary-container transition-colors"
+            className="flex items-center gap-1 bg-primary-container text-black text-label-bold font-black uppercase px-2 py-1 hover:bg-secondary-container transition-colors"
           >
             <span className="material-symbols-outlined text-xs" style={{ fontVariationSettings: "'FILL' 1" }}>ac_unit</span>
             {streak?.freeze_tokens} FREEZE
@@ -155,7 +155,7 @@ function BodyStatsChart({ bodyStats }: { bodyStats: BodyStat[] }) {
   if (bodyStats.length < 2) {
     return (
       <div className="bg-surface-container-low border-2 border-black p-6 flex flex-col gap-4 md:col-span-12">
-        <h2 className="font-black text-xs uppercase tracking-widest text-on-surface flex items-center gap-2">
+        <h2 className="font-headline-md text-headline-md italic uppercase text-on-surface flex items-center gap-2">
           <span className="material-symbols-outlined text-primary-container text-base" style={{ fontVariationSettings: "'FILL' 1" }}>monitor_weight</span>
           PHYSIQUE METRICS
         </h2>
@@ -184,7 +184,7 @@ function BodyStatsChart({ bodyStats }: { bodyStats: BodyStat[] }) {
   return (
     <div className="bg-surface-container-low border-2 border-black p-6 flex flex-col gap-4 md:col-span-12">
       <div className="flex justify-between items-center">
-        <h2 className="font-black text-xs uppercase tracking-widest text-on-surface flex items-center gap-2">
+        <h2 className="font-headline-md text-headline-md italic uppercase text-on-surface flex items-center gap-2">
           <span className="material-symbols-outlined text-primary-container text-base" style={{ fontVariationSettings: "'FILL' 1" }}>monitor_weight</span>
           PHYSIQUE METRICS
         </h2>
@@ -273,7 +273,7 @@ function BodyStatsForm() {
 
   return (
     <div className="bg-surface-container-low border-2 border-black p-6 flex flex-col gap-4 md:col-span-12">
-      <h2 className="font-black text-xs uppercase tracking-widest text-on-surface flex items-center gap-2">
+      <h2 className="font-headline-md text-headline-md italic uppercase text-on-surface flex items-center gap-2">
         <span className="material-symbols-outlined text-primary-container text-base" style={{ fontVariationSettings: "'FILL' 1" }}>edit_note</span>
         LOG TODAY&apos;S STATS
       </h2>
@@ -286,7 +286,7 @@ function BodyStatsForm() {
         <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-4">
           {fields.map(({ key, label, unit }) => (
             <div key={key}>
-              <label className="block text-[10px] font-black uppercase tracking-widest text-on-surface-variant mb-1">
+              <label className="block text-label-bold font-black uppercase tracking-widest text-on-surface-variant mb-1">
                 {label} ({unit})
               </label>
               <input
@@ -303,7 +303,7 @@ function BodyStatsForm() {
         <button
           type="submit"
           disabled={isPending}
-          className="bg-primary-container text-black font-black italic uppercase px-8 py-3 hover:bg-secondary-container transition-colors text-sm tracking-widest disabled:opacity-50 flex items-center gap-2"
+          className="bg-primary-container text-black font-label-bold text-label-bold italic uppercase px-6 py-3 hover:bg-secondary-container transition-colors tracking-widest disabled:opacity-50 flex items-center gap-2"
         >
           {isPending ? (
             <><span className="material-symbols-outlined animate-spin text-base">autorenew</span> SAVING...</>
@@ -337,9 +337,9 @@ function VolumeBar({ weeklyVolume }: { weeklyVolume: { started_at: string; total
 
   return (
     <div className="md:col-span-6 bg-surface-container-low border-2 border-black p-6 flex flex-col gap-4">
-      <h2 className="font-black text-xs uppercase tracking-widest text-on-surface flex items-center gap-2">
+      <h2 className="font-headline-md text-headline-md italic uppercase text-on-surface flex items-center gap-2">
         <span className="material-symbols-outlined text-primary-container text-base" style={{ fontVariationSettings: "'FILL' 1" }}>bar_chart</span>
-        WEEKLY VOLUME (KG)
+        WEEKLY VOLUME
       </h2>
       {entries.length === 0 ? (
         <div className="flex items-end gap-2 h-32">
@@ -374,7 +374,7 @@ function MuscleDistribution() {
 
   return (
     <div className="md:col-span-6 bg-surface-container-low border-2 border-black p-6 flex flex-col gap-4">
-      <h2 className="font-black text-xs uppercase tracking-widest text-on-surface flex items-center gap-2">
+      <h2 className="font-headline-md text-headline-md italic uppercase text-on-surface flex items-center gap-2">
         <span className="material-symbols-outlined text-primary-container text-base" style={{ fontVariationSettings: "'FILL' 1" }}>accessibility_new</span>
         MUSCLE DISTRIBUTION
       </h2>
@@ -414,12 +414,12 @@ export function ProgressClient({ streak, sessions, bodyStats, weeklyVolume }: {
   return (
     <div className="p-6 md:p-10 animate-fade-in">
       {/* Page header */}
-      <div className="border-b-2 border-surface-container-high pb-6 mb-8 relative overflow-hidden">
+      <div className="border-b-2 border-surface-container-high pb-8 mb-8 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-primary-container/10 to-transparent pointer-events-none" />
-        <h1 className="text-[clamp(36px,5vw,60px)] font-black italic uppercase text-on-background leading-none tracking-tighter relative z-10">
-          ANALYTICS BATTLEGROUND
+        <h1 className="text-display-xl font-black italic uppercase text-on-background leading-none tracking-tighter relative z-10">
+          ANALYTICS
         </h1>
-        <p className="font-black text-sm text-on-surface-variant uppercase mt-2 tracking-widest italic relative z-10">
+        <p className="font-black text-label-bold text-on-surface-variant uppercase mt-2 tracking-widest italic relative z-10">
           Measure the suffering. Track the gains.
         </p>
       </div>
@@ -435,7 +435,7 @@ export function ProgressClient({ streak, sessions, bodyStats, weeklyVolume }: {
           <div key={i} className={`${stat.accent ? "bg-primary-container text-black" : "bg-surface-container-high text-on-surface border-2 border-black"} p-5 flex flex-col gap-2`}>
             <span className="material-symbols-outlined text-xl opacity-70" style={{ fontVariationSettings: "'FILL' 1" }}>{stat.icon}</span>
             <div className="text-3xl font-black italic leading-none">{stat.value}</div>
-            <div className={`text-[10px] font-black uppercase tracking-widest ${stat.accent ? "text-black/70" : "text-on-surface-variant"}`}>{stat.label}</div>
+            <div className={`text-label-bold font-black uppercase tracking-widest ${stat.accent ? "text-black/70" : "text-on-surface-variant"}`}>{stat.label}</div>
           </div>
         ))}
       </div>

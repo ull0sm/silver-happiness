@@ -62,12 +62,12 @@ export function SocialClient({ leaderboard, currentUserId, squad, squadMembers, 
     <div className="p-6 md:p-10 animate-fade-in">
 
       {/* Header */}
-      <div className="border-b-2 border-surface-container-high pb-6 mb-8 relative overflow-hidden">
+      <div className="border-b-2 border-surface-container-high pb-8 mb-8 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-primary-container/10 to-transparent pointer-events-none" />
-        <h1 className="text-[clamp(36px,5vw,60px)] font-black italic uppercase text-on-background leading-none tracking-tighter relative z-10">
+        <h1 className="text-display-xl font-black italic uppercase text-on-background leading-none tracking-tighter relative z-10">
           BATTLEGROUND
         </h1>
-        <p className="font-black text-sm text-on-surface-variant uppercase mt-2 tracking-widest italic relative z-10 border-l-2 border-primary-container pl-4">
+        <p className="font-black text-label-bold text-on-surface-variant uppercase mt-2 tracking-widest italic relative z-10 border-l-2 border-primary-container pl-4">
           Prove your worth. Crush the weak.
         </p>
       </div>
@@ -90,8 +90,8 @@ export function SocialClient({ leaderboard, currentUserId, squad, squadMembers, 
 
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end border-b-2 border-surface-container-high pb-4 mb-6 gap-4 relative z-10">
             <div>
-              <h2 className="font-black text-2xl italic uppercase text-on-surface">GLOBAL TOP 5</h2>
-              <p className="text-xs font-black text-on-surface-variant uppercase tracking-widest mt-1">Weekly Ranking</p>
+              <h2 className="font-headline-lg text-headline-lg italic uppercase text-on-surface">GLOBAL TOP 5</h2>
+              <p className="text-label-bold font-black text-on-surface-variant uppercase tracking-widest mt-1">Weekly Ranking</p>
             </div>
             {/* Metric tabs */}
             <div className="flex gap-1">
@@ -171,11 +171,11 @@ export function SocialClient({ leaderboard, currentUserId, squad, squadMembers, 
           <div className="bg-surface-container-low border-2 border-black p-6">
             <div className="flex justify-between items-end border-b-2 border-surface-container-high pb-3 mb-4">
               <div>
-                <h3 className="font-black text-base italic uppercase text-on-surface">
+                <h3 className="font-headline-md text-headline-md italic uppercase text-on-surface">
                   {squad ? squad.name : "BLOOD PACT"}
                 </h3>
                 {squad && (
-                  <p className="text-[10px] font-black uppercase tracking-widest text-on-surface-variant mt-0.5">
+                  <p className="text-label-bold font-black uppercase tracking-widest text-on-surface-variant mt-0.5">
                     CODE: <span className="text-primary-container">{squad.invite_code}</span>
                   </p>
                 )}
@@ -226,7 +226,7 @@ export function SocialClient({ leaderboard, currentUserId, squad, squadMembers, 
           {/* Challenges */}
           <div className="bg-surface-container-low border-2 border-black p-6 flex-1">
             <div className="flex justify-between items-center border-b-2 border-surface-container-high pb-3 mb-4">
-              <h3 className="font-black text-base italic uppercase text-on-surface">ACTIVE DIRECTIVES</h3>
+              <h3 className="font-headline-md text-headline-md italic uppercase text-on-surface">ACTIVE DIRECTIVES</h3>
               <span className="material-symbols-outlined text-on-surface-variant" style={{ fontVariationSettings: "'FILL' 1" }}>military_tech</span>
             </div>
             <div className="flex flex-col gap-5">
@@ -256,8 +256,8 @@ export function SocialClient({ leaderboard, currentUserId, squad, squadMembers, 
         {/* ── Achievements (col-12) ──────────────────── */}
         <div className="md:col-span-12 bg-surface-container-low border-2 border-black p-6">
           <div className="flex items-end justify-between border-b-2 border-surface-container-high pb-3 mb-6">
-            <h2 className="font-black text-2xl italic uppercase text-on-surface">COMBAT MEDALS</h2>
-            <span className="text-xs font-black text-on-surface-variant uppercase tracking-widest">
+            <h2 className="font-headline-lg text-headline-lg italic uppercase text-on-surface">COMBAT MEDALS</h2>
+            <span className="text-label-bold font-black text-on-surface-variant uppercase tracking-widest">
               {ACHIEVEMENTS.filter((a) => a.earned).length}/{ACHIEVEMENTS.length} earned
             </span>
           </div>
@@ -286,10 +286,10 @@ export function SocialClient({ leaderboard, currentUserId, squad, squadMembers, 
       {squadModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4" onClick={() => setSquadModal(null)}>
           <div className="bg-surface-container-lowest border-2 border-primary-container w-full max-w-md p-8 animate-fade-in" onClick={(e) => e.stopPropagation()}>
-            <h3 className="font-black text-2xl italic uppercase text-on-surface mb-6">
+            <h3 className="font-headline-md text-headline-md italic uppercase text-on-surface mb-6">
               {squadModal === "create" ? "FORGE A SQUAD" : "JOIN A SQUAD"}
             </h3>
-            <label className="block font-black text-xs uppercase tracking-widest text-on-surface-variant mb-2">
+            <label className="block font-label-bold text-label-bold uppercase tracking-widest text-on-surface-variant mb-2">
               {squadModal === "create" ? "SQUAD NAME" : "INVITE CODE"}
             </label>
             <input
@@ -298,19 +298,19 @@ export function SocialClient({ leaderboard, currentUserId, squad, squadMembers, 
               onChange={(e) => setSquadInput(e.target.value.toUpperCase())}
               placeholder={squadModal === "create" ? "E.G. IRON WOLVES" : "E.G. ABC12345"}
               autoFocus
-              className="w-full bg-black border-b-2 border-surface-container-high focus:border-primary-container text-on-surface font-black italic uppercase text-xl px-4 py-3 mb-6"
+              className="w-full bg-black border-b-2 border-surface-container-high focus:border-primary-container text-on-surface font-label-bold text-label-bold italic uppercase px-4 py-3 mb-6"
               onKeyDown={(e) => e.key === "Enter" && handleSquadAction(squadModal)}
             />
             <div className="flex gap-3">
               <button
                 onClick={() => handleSquadAction(squadModal)}
-                className="flex-1 bg-primary-container text-black font-black italic uppercase py-3 hover:bg-secondary-container transition-colors text-sm tracking-widest"
+                className="flex-1 bg-primary-container text-black font-label-bold text-label-bold italic uppercase py-3 hover:bg-secondary-container transition-colors tracking-widest"
               >
                 {squadModal === "create" ? "CREATE" : "JOIN"}
               </button>
               <button
                 onClick={() => setSquadModal(null)}
-                className="px-6 border-2 border-surface-container-high text-on-surface-variant hover:border-primary-container transition-colors font-black uppercase text-sm"
+                className="px-6 border-2 border-surface-container-high text-on-surface-variant hover:border-primary-container transition-colors font-label-bold text-label-bold uppercase"
               >
                 CANCEL
               </button>

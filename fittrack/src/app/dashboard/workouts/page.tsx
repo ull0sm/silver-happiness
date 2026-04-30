@@ -19,12 +19,12 @@ export default function WorkoutsPage() {
     <div className="p-6 md:p-10 animate-fade-in">
 
       {/* ── Page Header ───────────────────────────────── */}
-      <div className="border-b-2 border-surface-container-high pb-6 mb-8 relative overflow-hidden">
+      <div className="border-b-2 border-surface-container-high pb-8 mb-8 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-primary-container/10 to-transparent pointer-events-none" />
-        <h1 className="text-[clamp(36px,5vw,60px)] font-black italic uppercase text-on-background leading-none tracking-tighter relative z-10">
+        <h1 className="text-display-xl font-black italic uppercase text-on-background leading-none tracking-tighter relative z-10">
           THE HUB
         </h1>
-        <p className="font-black text-sm text-on-surface-variant uppercase mt-2 tracking-widest italic relative z-10">
+        <p className="font-black text-label-bold text-on-surface-variant uppercase mt-2 tracking-widest italic relative z-10">
           Select your weapon. Build your arsenal.
         </p>
       </div>
@@ -32,8 +32,8 @@ export default function WorkoutsPage() {
       {/* ── Curated Plans ─────────────────────────────── */}
       <section className="mb-12">
         <div className="flex items-end justify-between border-b-2 border-surface-container-highest pb-2 mb-6">
-          <h2 className="font-black text-3xl italic uppercase text-primary">CURATED PLANS</h2>
-          <span className="font-black text-xs text-on-surface-variant uppercase tracking-widest">PRE-BUILT DESTRUCTION</span>
+          <h2 className="font-headline-lg text-headline-lg italic uppercase text-primary">CURATED PLANS</h2>
+          <span className="font-label-bold text-label-bold text-on-surface-variant uppercase">PRE-BUILT DESTRUCTION</span>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
@@ -52,19 +52,19 @@ export default function WorkoutsPage() {
       {/* ── Custom Builder CTA ────────────────────────── */}
       <section className="mb-12">
         <div className="flex items-end justify-between border-b-2 border-surface-container-highest pb-2 mb-6">
-          <h2 className="font-black text-3xl italic uppercase text-on-surface">CUSTOM FORGE</h2>
-          <span className="font-black text-xs text-on-surface-variant uppercase tracking-widest">BUILD YOUR OWN</span>
+          <h2 className="font-headline-lg text-headline-lg italic uppercase text-on-surface">CUSTOM FORGE</h2>
+          <span className="font-label-bold text-label-bold text-on-surface-variant uppercase">BUILD YOUR OWN</span>
         </div>
 
         <div className="bg-surface-container-high border-2 border-black p-8 flex flex-col md:flex-row items-center justify-between gap-6 group hover:border-primary-container transition-colors">
           <div className="flex items-center gap-6">
-            <div className="w-16 h-16 bg-surface-variant border-2 border-primary-container flex items-center justify-center shrink-0">
+            <div className="w-16 h-16 bg-surface-container-highest border-2 border-primary-container flex items-center justify-center shrink-0">
               <span className="material-symbols-outlined text-primary-container text-3xl" style={{ fontVariationSettings: "'FILL' 1" }}>
                 build
               </span>
             </div>
             <div>
-              <h3 className="font-black italic uppercase text-xl text-on-surface">Build Custom Routine</h3>
+              <h3 className="font-headline-md text-headline-md italic uppercase text-on-surface group-hover:text-primary transition-colors">Build Custom Routine</h3>
               <p className="text-on-surface-variant text-sm mt-1">
                 Pick exercises from the library, set your own sets / reps / rest time, drag to reorder.
               </p>
@@ -72,7 +72,7 @@ export default function WorkoutsPage() {
           </div>
           <button
             onClick={() => router.push("/dashboard/workouts/builder")}
-            className="shrink-0 bg-primary-container text-black font-black italic uppercase px-8 py-4 hover:bg-secondary-container transition-colors text-sm tracking-widest flex items-center gap-2 w-full md:w-auto justify-center"
+            className="shrink-0 bg-primary-container text-black font-label-bold text-label-bold italic uppercase px-6 py-3 hover:bg-secondary-container transition-colors tracking-widest flex items-center gap-2 w-full md:w-auto justify-center"
           >
             <span className="material-symbols-outlined text-base">add</span>
             Create Workout
@@ -83,8 +83,8 @@ export default function WorkoutsPage() {
       {/* ── Quick Start (empty session) ───────────────── */}
       <section>
         <div className="flex items-end justify-between border-b-2 border-surface-container-highest pb-2 mb-6">
-          <h2 className="font-black text-3xl italic uppercase text-on-surface">QUICK DEPLOY</h2>
-          <span className="font-black text-xs text-on-surface-variant uppercase tracking-widest">NO PLAN NEEDED</span>
+          <h2 className="font-headline-lg text-headline-lg italic uppercase text-on-surface">QUICK DEPLOY</h2>
+          <span className="font-label-bold text-label-bold text-on-surface-variant uppercase">NO PLAN NEEDED</span>
         </div>
         <button
           onClick={() => { sessionStorage.removeItem("active_plan"); router.push("/dashboard/active"); }}
@@ -112,7 +112,7 @@ function PlanCard({ plan, expanded, onToggle, onStart }: {
       plan.accent ? "border-t-primary-container border-t-4" : "border-t-surface-variant border-t-4"
     }`}>
       {/* Image area */}
-      <div className="h-52 relative overflow-hidden bg-surface-container">
+      <div className="h-64 relative overflow-hidden bg-gradient-to-br from-surface-container to-black">
         {/* Brutalist pattern bg */}
         <div className="absolute inset-0 flex flex-col gap-3 p-4 opacity-10">
           {[...Array(6)].map((_, i) => (
@@ -131,17 +131,17 @@ function PlanCard({ plan, expanded, onToggle, onStart }: {
         {/* Content overlay */}
         <div className="absolute bottom-0 left-0 right-0 p-5">
           <div className="flex gap-2 mb-3">
-            <span className={`text-xs font-black uppercase px-2 py-1 ${plan.accent ? "bg-primary-container text-black" : "bg-surface-variant text-on-surface"}`}>
+            <span className={`text-label-bold font-black uppercase px-3 py-1 ${plan.accent ? "bg-primary-container text-black" : "bg-surface-variant text-on-surface"}`}>
               {plan.tag}
             </span>
-            <span className="text-xs font-black uppercase px-2 py-1 bg-black text-primary-container border border-primary-container">
+            <span className="text-label-bold font-black uppercase px-3 py-1 bg-black text-primary-container border border-primary-container">
               {plan.focus}
             </span>
           </div>
-          <h3 className="font-black text-2xl italic uppercase text-on-surface group-hover:text-primary transition-colors">
+          <h3 className="font-headline-md text-headline-md italic uppercase text-on-surface group-hover:text-primary transition-colors">
             {plan.name}
           </h3>
-          <p className="text-on-surface-variant text-xs mt-1 font-bold uppercase tracking-widest">{plan.days}</p>
+          <p className="text-label-bold text-on-surface-variant mt-1 font-bold uppercase tracking-widest">{plan.days}</p>
         </div>
       </div>
 
@@ -150,7 +150,7 @@ function PlanCard({ plan, expanded, onToggle, onStart }: {
         <p className="text-on-surface-variant text-sm leading-relaxed">{plan.description}</p>
 
         {/* Exercise count */}
-        <div className="flex items-center gap-2 text-xs text-on-surface-variant font-black uppercase tracking-widest">
+        <div className="flex items-center gap-2 text-label-bold text-on-surface-variant font-black uppercase tracking-widest">
           <span className="material-symbols-outlined text-sm">list_alt</span>
           {plan.exercises.length} exercises
         </div>
@@ -164,7 +164,7 @@ function PlanCard({ plan, expanded, onToggle, onStart }: {
                   {ex.icon}
                 </span>
                 <div className="flex-1 min-w-0">
-                  <p className="text-on-surface font-black uppercase text-xs truncate">{ex.name}</p>
+                  <p className="text-on-surface font-black uppercase text-label-bold truncate">{ex.name}</p>
                   <p className="text-on-surface-variant text-[10px] font-bold uppercase">{ex.sets} × {ex.reps} reps</p>
                 </div>
                 <span className="text-on-surface-variant text-[10px] font-black uppercase shrink-0">{ex.rest_seconds}s rest</span>
@@ -175,7 +175,7 @@ function PlanCard({ plan, expanded, onToggle, onStart }: {
 
         <button
           onClick={onToggle}
-          className="text-on-surface-variant hover:text-primary-container text-xs font-black uppercase tracking-widest flex items-center gap-1 transition-colors"
+          className="text-on-surface-variant hover:text-primary-container text-label-bold font-black uppercase tracking-widest flex items-center gap-1 transition-colors"
         >
           <span className="material-symbols-outlined text-sm">{expanded ? "expand_less" : "expand_more"}</span>
           {expanded ? "Hide exercises" : "Preview exercises"}
@@ -185,7 +185,7 @@ function PlanCard({ plan, expanded, onToggle, onStart }: {
         <div className="flex gap-2 mt-auto pt-2 border-t-2 border-surface-container">
           <button
             onClick={onStart}
-            className="flex-1 bg-primary-container text-black font-black italic uppercase py-3 hover:bg-secondary-container transition-colors text-sm tracking-widest flex items-center justify-center gap-2"
+            className="flex-1 bg-primary-container text-black font-black italic uppercase py-3 hover:bg-secondary-container transition-colors text-label-bold tracking-widest flex items-center justify-center gap-2"
           >
             <span className="material-symbols-outlined text-base" style={{ fontVariationSettings: "'FILL' 1" }}>play_circle</span>
             START

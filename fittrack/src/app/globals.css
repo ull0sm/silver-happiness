@@ -186,3 +186,8 @@ input, textarea, select {
 .animate-spin {
   animation: spin 1s linear infinite;
 }
+
+/* Radial gradient utility (used by homepage CTA) */
+.bg-gradient-radial {
+  background-image: radial-gradient(circle at center, var(--tw-gradient-stops));
+}
