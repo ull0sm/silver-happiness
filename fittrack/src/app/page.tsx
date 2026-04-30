@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Hero from "@/components/Hero";
+import AuthNavAction from "@/components/AuthNavAction";
 
 export default function HomePage() {
   return (
@@ -14,16 +15,7 @@ export default function HomePage() {
           <a href="#features" className="text-on-surface-variant hover:text-primary-container transition-colors duration-150">METRICS</a>
           <a href="#features" className="text-on-surface-variant hover:text-primary-container transition-colors duration-150">COMPETE</a>
         </div>
-        <Link
-          href="/auth"
-          className="hidden md:block bg-primary-container text-black px-6 py-2 font-black italic uppercase tracking-tighter hover:bg-secondary-container transition-colors duration-150 text-sm"
-        >
-          JOIN THE BATTLE
-        </Link>
-        {/* Mobile menu */}
-        <Link href="/auth" className="md:hidden text-primary-container font-black italic uppercase text-sm">
-          LOGIN
-        </Link>
+        <AuthNavAction />
       </nav>
 
       <main className="mt-20 flex flex-col">

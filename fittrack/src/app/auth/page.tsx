@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
@@ -68,6 +69,15 @@ function AuthForm() {
 
   return (
     <div className="bg-background text-on-surface font-lexend min-h-screen flex flex-col">
+      <Link
+        href="/"
+        className="fixed top-6 left-6 z-30 inline-flex items-center gap-2 bg-black/90 border-2 border-surface-container-high px-4 py-2 font-black uppercase italic tracking-widest text-xs text-on-surface-variant hover:text-primary-container hover:border-primary-container transition-colors"
+      >
+        <span className="material-symbols-outlined text-base" style={{ fontVariationSettings: "'FILL' 1" }}>
+          arrow_back
+        </span>
+        Home
+      </Link>
       <main className="flex-grow flex flex-col md:flex-row w-full relative overflow-hidden">
 
         {/* ── Left Hero (Desktop only) ───────────────────── */}

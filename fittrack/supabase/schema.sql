@@ -16,9 +16,10 @@ CREATE TABLE IF NOT EXISTS public.profiles (
 
 ALTER TABLE public.profiles ENABLE ROW LEVEL SECURITY;
 
-CREATE POLICY "Users can view own profile"
+CREATE POLICY "Authenticated users can view profiles"
   ON public.profiles FOR SELECT
-  USING (auth.uid() = id);
+  TO authenticated
+  USING (TRUE);
 
 CREATE POLICY "Users can update own profile"
   ON public.profiles FOR UPDATE
@@ -105,6 +106,11 @@ ALTER TABLE public.workout_sessions ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "Users manage own sessions"
   ON public.workout_sessions FOR ALL
   USING (auth.uid() = user_id);
+
+CREATE POLICY "Authenticated users can view workout sessions"
+  ON public.workout_sessions FOR SELECT
+  TO authenticated
+  USING (TRUE);
 
 CREATE TABLE IF NOT EXISTS public.session_sets (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),

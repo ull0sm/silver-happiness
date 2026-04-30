@@ -2,7 +2,7 @@
 
 import { useState, useTransition } from "react";
 import Link from "next/link";
-import { createSquad, joinSquad } from "@/lib/social-actions";
+import { createSquad, joinSquad, leaveSquad } from "@/lib/social-actions";
 
 type LeaderboardEntry = { rank: number; name: string; score: number; uid: string };
 type Squad = { id: string; name: string; invite_code: string } | null;
@@ -38,6 +38,7 @@ export function SocialClient({ leaderboard, currentUserId, squad, squadMembers, 
   const [tab, setTab] = useState<"volume" | "streak" | "sessions">("volume");
   const [squadModal, setSquadModal] = useState<"create" | "join" | null>(null);
   const [squadInput, setSquadInput] = useState("");
+  const [leaveInput, setLeaveInput] = useState("");
   const [feedback, setFeedback] = useState<string | null>(null);
   const [, startTransition] = useTransition();
   const [inviteCode, setInviteCode] = useState<string | null>(squad?.invite_code ?? null);
@@ -55,6 +56,21 @@ export function SocialClient({ leaderboard, currentUserId, squad, squadMembers, 
         else { setFeedback(`✓ Joined ${res.squadName}!`); setSquadModal(null); }
       }
       setSquadInput("");
+    });
+  }
+
+  function handleLeaveSquad() {
+    if (!squad || !leaveInput.trim()) return;
+
+    startTransition(async () => {
+      const res = await leaveSquad(leaveInput);
+      if (res.error) {
+        setFeedback(`⚠ ${res.error}`);
+        return;
+      }
+
+      setFeedback("✓ Left squad");
+      setLeaveInput("");
     });
   }
 
@@ -214,12 +230,39 @@ export function SocialClient({ leaderboard, currentUserId, squad, squadMembers, 
                 </button>
               </div>
             ) : (
-              <button
-                onClick={() => { navigator.clipboard.writeText(squad.invite_code); setFeedback("✓ Invite code copied!"); }}
-                className="w-full border-2 border-primary-container text-primary-container font-black italic uppercase py-2 hover:bg-primary-container hover:text-black transition-colors text-xs tracking-widest flex items-center justify-center gap-1"
-              >
-                <span className="material-symbols-outlined text-sm">content_copy</span> COPY INVITE CODE
-              </button>
+              <div className="flex flex-col gap-3">
+                <button
+                  onClick={() => { navigator.clipboard.writeText(squad.invite_code); setFeedback("✓ Invite code copied!"); }}
+                  className="w-full border-2 border-primary-container text-primary-container font-black italic uppercase py-2 hover:bg-primary-container hover:text-black transition-colors text-xs tracking-widest flex items-center justify-center gap-1"
+                >
+                  <span className="material-symbols-outlined text-sm">content_copy</span> COPY INVITE CODE
+                </button>
+
+                <details className="group rounded-none border border-surface-variant/60 bg-black/20 px-3 py-2">
+                  <summary className="cursor-pointer list-none text-[10px] font-black uppercase tracking-[0.35em] text-on-surface-variant hover:text-primary-container transition-colors">
+                    Danger zone
+                  </summary>
+                  <div className="mt-3 space-y-3">
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant leading-relaxed">
+                      Leaving is locked behind a confirmation step. Type the squad name exactly to continue.
+                    </p>
+                    <input
+                      type="text"
+                      value={leaveInput}
+                      onChange={(e) => setLeaveInput(e.target.value.toUpperCase())}
+                      placeholder={squad.name}
+                      className="w-full bg-black border-b-2 border-surface-container-high focus:border-error text-on-surface font-black uppercase px-3 py-2 text-xs tracking-widest"
+                    />
+                    <button
+                      onClick={handleLeaveSquad}
+                      className="w-full border-2 border-error text-error font-black italic uppercase py-2 hover:bg-error hover:text-black transition-colors text-xs tracking-widest flex items-center justify-center gap-1"
+                    >
+                      <span className="material-symbols-outlined text-sm">logout</span>
+                      Leave Squad
+                    </button>
+                  </div>
+                </details>
+              </div>
             )}
           </div>
 

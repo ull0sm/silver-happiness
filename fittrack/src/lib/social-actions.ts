@@ -32,10 +32,12 @@ export async function joinSquad(inviteCode: string) {
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return { error: "Not authenticated" };
 
+  const normalizedInviteCode = inviteCode.trim();
+
   const { data: squad, error } = await supabase
     .from("squads")
     .select("id, name")
-    .eq("invite_code", inviteCode.toUpperCase())
+    .ilike("invite_code", normalizedInviteCode)
     .single();
 
   if (error || !squad) return { error: "Invalid invite code" };
@@ -49,6 +51,39 @@ export async function joinSquad(inviteCode: string) {
 
   revalidatePath("/dashboard/social");
   return { success: true, squadName: squad.name };
+}
+
+export async function leaveSquad(confirmText: string) {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return { error: "Not authenticated" };
+
+  const { data: membership, error: membershipError } = await supabase
+    .from("squad_members")
+    .select("squads(id, name), role")
+    .eq("user_id", user.id)
+    .limit(1)
+    .maybeSingle();
+
+  if (membershipError) return { error: membershipError.message };
+
+  const squad = (membership as { squads: { id: string; name: string } | null; role: string } | null)?.squads ?? null;
+  if (!squad) return { error: "You are not in a squad" };
+
+  if (confirmText.trim().toUpperCase() !== squad.name.toUpperCase()) {
+    return { error: "Type the squad name exactly to leave" };
+  }
+
+  const { error: leaveError } = await supabase
+    .from("squad_members")
+    .delete()
+    .eq("squad_id", squad.id)
+    .eq("user_id", user.id);
+
+  if (leaveError) return { error: leaveError.message };
+
+  revalidatePath("/dashboard/social");
+  return { success: true };
 }
 
 export async function getLeaderboard(metric: "volume" | "streak" | "sessions" = "volume") {

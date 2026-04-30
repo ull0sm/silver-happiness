@@ -18,7 +18,7 @@ export default async function SocialPage() {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   (sessions ?? []).forEach((s: any) => {
     const p = Array.isArray(s.profiles) ? s.profiles[0] : s.profiles;
-    const name = p?.display_name || p?.username || "ANON";
+    const name = p?.display_name || p?.username || "ATHLETE";
     if (!volumeMap[s.user_id]) volumeMap[s.user_id] = { volume: 0, name, uid: s.user_id };
     volumeMap[s.user_id].volume += s.total_volume_kg ?? 0;
   });
@@ -62,7 +62,7 @@ export default async function SocialPage() {
         .map((m: any) => ({
           name: (Array.isArray(m.profiles) ? m.profiles[0] : m.profiles)?.display_name
              || (Array.isArray(m.profiles) ? m.profiles[0] : m.profiles)?.username
-             || "ANON",
+             || "ATHLETE",
           score: Math.round(mVolume[m.user_id] ?? 0),
           uid: m.user_id,
         }))
