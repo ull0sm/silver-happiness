@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { PREDEFINED_PLANS, type WorkoutPlan } from "@/lib/workout-plans";
-import { EXERCISES } from "@/lib/exercises-data";
 
 export default function WorkoutsPage() {
   const router = useRouter();

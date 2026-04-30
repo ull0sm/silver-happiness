@@ -1,14 +1,9 @@
 "use client";
 
-import { useState, useMemo } from "react";
-import { EXERCISES, MUSCLE_GROUPS, EQUIPMENT_TYPES, type Exercise } from "@/lib/exercises-data";
+import { useEffect, useMemo, useState } from "react";
+import { type Exercise } from "@/lib/exercises-data";
+import { buildExerciseImageUrl, matchesExerciseQuery } from "@/lib/exercise-catalog";
 import { ExerciseModal } from "@/components/exercises/ExerciseModal";
-
-const DIFFICULTY_BADGE: Record<string, string> = {
-  beginner:     "bg-surface-container-high text-on-surface-variant border border-surface-variant",
-  intermediate: "bg-secondary-container/20 text-secondary-container border border-secondary-container",
-  advanced:     "bg-primary-container/20 text-primary-container border border-primary-container",
-};
 
 export default function ExercisesPage() {
   const [search, setSearch] = useState("");
@@ -16,15 +11,59 @@ export default function ExercisesPage() {
   const [equipment, setEquipment] = useState("All");
   const [selected, setSelected] = useState<Exercise | null>(null);
   const [visibleCount, setVisibleCount] = useState(12);
+  const [exercises, setExercises] = useState<Exercise[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    async function loadExercises() {
+      setLoading(true);
+
+      try {
+        const response = await fetch("/api/exercises");
+        if (!response.ok) {
+          throw new Error(`Failed to load exercises (${response.status})`);
+        }
+
+        const data = (await response.json()) as Exercise[];
+        if (!cancelled) {
+          setExercises(data);
+        }
+      } catch {
+        if (!cancelled) {
+          setExercises([]);
+        }
+      } finally {
+        if (!cancelled) {
+          setLoading(false);
+        }
+      }
+    }
+
+    loadExercises();
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const muscleGroups = useMemo(() => {
+    return ["All", ...Array.from(new Set(exercises.map((exercise) => exercise.muscle_group))).sort()];
+  }, [exercises]);
+
+  const equipmentTypes = useMemo(() => {
+    return ["All", ...Array.from(new Set(exercises.map((exercise) => exercise.equipment))).sort()];
+  }, [exercises]);
 
   const filtered = useMemo(() => {
-    return EXERCISES.filter((ex) => {
-      const matchSearch = ex.name.toLowerCase().includes(search.toLowerCase());
+    return exercises.filter((ex) => {
+      const matchSearch = matchesExerciseQuery(ex, search);
       const matchMuscle = muscle === "All" || ex.muscle_group === muscle;
       const matchEquip  = equipment === "All" || ex.equipment === equipment;
       return matchSearch && matchMuscle && matchEquip;
     });
-  }, [search, muscle, equipment]);
+  }, [exercises, search, muscle, equipment]);
 
   const visible = filtered.slice(0, visibleCount);
   const hasMore = visibleCount < filtered.length;
@@ -75,7 +114,7 @@ export default function ExercisesPage() {
         <div className="mb-4">
           <p className="text-label-bold font-black uppercase tracking-widest text-on-surface-variant mb-3">MUSCLE GROUP</p>
           <div className="flex flex-wrap gap-2">
-            {MUSCLE_GROUPS.map((g) => (
+            {muscleGroups.map((g) => (
               <button
                 key={g}
                 onClick={() => { setMuscle(g); setVisibleCount(12); }}
@@ -95,7 +134,7 @@ export default function ExercisesPage() {
         <div className="mb-6">
           <p className="text-label-bold font-black uppercase tracking-widest text-on-surface-variant mb-3">EQUIPMENT</p>
           <div className="flex flex-wrap gap-2">
-            {EQUIPMENT_TYPES.map((eq) => (
+            {equipmentTypes.map((eq) => (
               <button
                 key={eq}
                 onClick={() => { setEquipment(eq); setVisibleCount(12); }}
@@ -145,7 +184,14 @@ export default function ExercisesPage() {
         )}
 
         {/* ── Exercise Grid ─────────────────────────────── */}
-        {visible.length === 0 ? (
+        {loading ? (
+          <div className="flex items-center justify-center py-24">
+            <div className="text-center">
+              <div className="text-primary-container font-black italic uppercase text-xl animate-pr-pulse mb-4">Loading the full arsenal...</div>
+              <p className="text-on-surface-variant text-sm uppercase tracking-widest">Fetching the remote exercise database</p>
+            </div>
+          </div>
+        ) : visible.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-24 text-center">
             <span className="material-symbols-outlined text-6xl text-on-surface-variant mb-4">search_off</span>
             <p className="font-headline-md text-headline-md italic uppercase text-on-surface mb-2">No exercises found</p>
@@ -180,20 +226,42 @@ export default function ExercisesPage() {
 
 /* ── Exercise Card ──────────────────────────────────────────── */
 function ExerciseCard({ exercise, onClick }: { exercise: Exercise; onClick: () => void }) {
+  const previewImage = exercise.images?.[0];
+  const previewText = exercise.instruction_steps?.[0] ?? exercise.form_tips;
+
   return (
     <div
       onClick={onClick}
       className="bg-surface-container border-2 border-black flex flex-col group cursor-pointer hover:border-primary-container transition-all duration-200"
     >
       {/* Visual area */}
-      <div className="h-40 bg-surface-container-high border-b-2 border-black relative flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-black/50 to-transparent z-10" />
-        <span
-          className="material-symbols-outlined text-7xl text-surface-container-highest group-hover:text-primary-container/60 transition-colors duration-500 relative z-0"
-          style={{ fontVariationSettings: "'FILL' 1" }}
-        >
-          {exercise.icon}
-        </span>
+      <div className="h-44 bg-surface-container-high border-b-2 border-black relative overflow-hidden">
+        {previewImage ? (
+          <img
+            src={buildExerciseImageUrl(previewImage)}
+            alt={exercise.name}
+            className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+            loading="lazy"
+          />
+        ) : (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <span
+              className="material-symbols-outlined text-7xl text-surface-container-highest group-hover:text-primary-container/60 transition-colors duration-500 relative z-0"
+              style={{ fontVariationSettings: "'FILL' 1" }}
+            >
+              {exercise.icon}
+            </span>
+          </div>
+        )}
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
+        <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between gap-2 z-10">
+          <span className="bg-primary-container text-black text-[10px] font-black uppercase tracking-widest px-2 py-1">
+            {exercise.muscle_group}
+          </span>
+          <span className="bg-black/80 text-white text-[10px] font-black uppercase tracking-widest px-2 py-1 border border-white/20">
+            {exercise.equipment}
+          </span>
+        </div>
       </div>
 
       {/* Content */}
@@ -202,8 +270,8 @@ function ExerciseCard({ exercise, onClick }: { exercise: Exercise; onClick: () =
           {exercise.name}
         </h3>
 
-        <p className="text-on-surface-variant text-sm flex-grow line-clamp-2 leading-relaxed mb-3">
-          {exercise.form_tips}
+        <p className="text-on-surface-variant text-sm flex-grow line-clamp-3 leading-relaxed mb-3">
+          {previewText}
         </p>
 
         {/* Footer */}

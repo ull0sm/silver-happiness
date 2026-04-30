@@ -10,6 +10,12 @@ export type Exercise = {
   instructions: string;
   swaps: string[];
   icon: string;
+  primary_muscles?: string[];
+  force?: "push" | "pull" | "static";
+  mechanic?: "compound" | "isolation";
+  level?: "beginner" | "intermediate" | "advanced";
+  instruction_steps?: string[];
+  images?: string[];
 };
 
 export const MUSCLE_GROUPS = [

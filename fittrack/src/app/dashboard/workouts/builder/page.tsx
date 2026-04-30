@@ -1,9 +1,10 @@
 "use client";
 
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { EXERCISES } from "@/lib/exercises-data";
+import { type Exercise } from "@/lib/exercises-data";
+import { matchesExerciseQuery } from "@/lib/exercise-catalog";
 import type { PlanExercise, WorkoutPlan } from "@/lib/workout-plans";
 
 export default function WorkoutBuilderPage() {
@@ -12,13 +13,49 @@ export default function WorkoutBuilderPage() {
   const [exercises, setExercises] = useState<PlanExercise[]>([]);
   const [search, setSearch] = useState("");
   const [showPicker, setShowPicker] = useState(false);
+  const [catalog, setCatalog] = useState<Exercise[]>([]);
+  const [loadingCatalog, setLoadingCatalog] = useState(true);
 
-  const filtered = EXERCISES.filter((e) =>
-    e.name.toLowerCase().includes(search.toLowerCase())
-  ).slice(0, 20);
+  useEffect(() => {
+    let cancelled = false;
+
+    async function loadCatalog() {
+      setLoadingCatalog(true);
+
+      try {
+        const response = await fetch("/api/exercises");
+        if (!response.ok) {
+          throw new Error(`Failed to load exercises (${response.status})`);
+        }
+
+        const data = (await response.json()) as Exercise[];
+        if (!cancelled) {
+          setCatalog(data);
+        }
+      } catch {
+        if (!cancelled) {
+          setCatalog([]);
+        }
+      } finally {
+        if (!cancelled) {
+          setLoadingCatalog(false);
+        }
+      }
+    }
+
+    loadCatalog();
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const filtered = useMemo(() => {
+    return catalog.filter((exercise) => matchesExerciseQuery(exercise, search)).slice(0, 20);
+  }, [catalog, search]);
 
   function addExercise(id: string) {
-    const ex = EXERCISES.find((e) => e.id === id);
+    const ex = catalog.find((exercise) => exercise.id === id);
     if (!ex) return;
     setExercises((prev) => [
       ...prev,
@@ -112,7 +149,15 @@ export default function WorkoutBuilderPage() {
               className="w-full bg-black border-b-2 border-surface-container-high focus:border-primary-container text-on-surface font-black uppercase px-4 py-2 mb-3 text-sm"
             />
             <div className="max-h-48 overflow-y-auto flex flex-col gap-1">
-              {filtered.map((ex) => (
+              {loadingCatalog ? (
+                <div className="py-6 text-center text-on-surface-variant text-sm uppercase tracking-widest font-black">
+                  Loading exercises...
+                </div>
+              ) : filtered.length === 0 ? (
+                <div className="py-6 text-center text-on-surface-variant text-sm uppercase tracking-widest font-black">
+                  No matches found
+                </div>
+              ) : filtered.map((ex) => (
                 <button
                   key={ex.id}
                   onClick={() => addExercise(ex.id)}
@@ -131,7 +176,7 @@ export default function WorkoutBuilderPage() {
           <div className="border-2 border-dashed border-surface-container-high py-16 flex flex-col items-center justify-center text-center">
             <span className="material-symbols-outlined text-5xl text-on-surface-variant mb-3">fitness_center</span>
             <p className="font-black italic uppercase text-on-surface-variant">No exercises yet.</p>
-            <p className="text-on-surface-variant text-sm mt-1">Click "Add Exercise" to build your plan.</p>
+            <p className="text-on-surface-variant text-sm mt-1">Click &quot;Add Exercise&quot; to build your plan.</p>
           </div>
         ) : (
           <div className="flex flex-col gap-3">
