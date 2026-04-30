@@ -27,6 +27,45 @@ export default async function SocialPage() {
     .slice(0, 10)
     .map((v, i) => ({ rank: i + 1, name: v.name, score: Math.round(v.volume), uid: v.uid }));
 
+  // Streak leaderboard
+  const { data: streaks } = await supabase
+    .from("streaks")
+    .select("current_streak, user_id, profiles(display_name, username, id)")
+    .order("current_streak", { ascending: false })
+    .limit(500);
+
+  const streakMap: Record<string, { score: number; name: string; uid: string }> = {};
+  (streaks ?? []).forEach((s: any) => {
+    const p = Array.isArray(s.profiles) ? s.profiles[0] : s.profiles;
+    const name = p?.display_name || p?.username || "ATHLETE";
+    streakMap[s.user_id] = { score: s.current_streak ?? 0, name, uid: s.user_id };
+  });
+
+  const streakLeaderboard = Object.values(streakMap)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 10)
+    .map((v, i) => ({ rank: i + 1, name: v.name, score: v.score, uid: v.uid }));
+
+  // Sessions leaderboard (count per user this week)
+  const { data: sessRows } = await supabase
+    .from("workout_sessions")
+    .select("user_id, profiles(display_name, username, id)")
+    .gte("started_at", weekAgo)
+    .limit(1000);
+
+  const sessionCounts: Record<string, { count: number; name: string; uid: string }> = {};
+  (sessRows ?? []).forEach((s: any) => {
+    const p = Array.isArray(s.profiles) ? s.profiles[0] : s.profiles;
+    const name = p?.display_name || p?.username || "ATHLETE";
+    if (!sessionCounts[s.user_id]) sessionCounts[s.user_id] = { count: 0, name, uid: s.user_id };
+    sessionCounts[s.user_id].count++;
+  });
+
+  const sessionsLeaderboard = Object.values(sessionCounts)
+    .sort((a, b) => b.count - a.count)
+    .slice(0, 10)
+    .map((v, i) => ({ rank: i + 1, name: v.name, score: v.count, uid: v.uid }));
+
   // User's squad
   const { data: squadMembership } = await supabase
     .from("squad_members")
@@ -80,7 +119,7 @@ export default async function SocialPage() {
 
   return (
     <SocialClient
-      leaderboard={leaderboard}
+      leaderboards={{ volume: leaderboard, streak: streakLeaderboard, sessions: sessionsLeaderboard }}
       currentUserId={user?.id ?? ""}
       squad={squad}
       squadMembers={squadMembers}

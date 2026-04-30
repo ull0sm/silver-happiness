@@ -24,18 +24,20 @@ const ACHIEVEMENTS = [
   { key: "pr_hunter",      label: "PR HUNTER",        icon: "trending_up",          desc: "Set 10 personal records",     earned: false },
 ];
 
-export function SocialClient({ leaderboard, currentUserId, squad, squadMembers, challenges }: {
-  leaderboard: LeaderboardEntry[];
+export function SocialClient({ leaderboards, currentUserId, squad, squadMembers, challenges }: {
+  leaderboards: Record<"volume" | "streak" | "sessions", LeaderboardEntry[]>;
   currentUserId: string;
   squad: Squad;
   squadMembers: SquadMember[];
   challenges: Challenge[];
 }) {
-  const top5 = leaderboard.slice(0, 5);
-  const rest  = leaderboard.slice(5);
+  const [tab, setTab] = useState<"volume" | "streak" | "sessions">("volume");
+  const currentLeaderboard = leaderboards[tab] ?? [];
+  const top5 = currentLeaderboard.slice(0, 5);
+  const rest  = currentLeaderboard.slice(5);
   const userInTop5 = top5.some((e) => e.uid === currentUserId);
 
-  const [tab, setTab] = useState<"volume" | "streak" | "sessions">("volume");
+  
   const [squadModal, setSquadModal] = useState<"create" | "join" | null>(null);
   const [squadInput, setSquadInput] = useState("");
   const [leaveInput, setLeaveInput] = useState("");
