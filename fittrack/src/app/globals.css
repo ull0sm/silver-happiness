@@ -1,0 +1,188 @@
+@import "tailwindcss";
+
+/* ── Crimson Fury Design System — CSS Variables ─────────── */
+/* Tailwind v4 reads @theme variables directly from CSS      */
+
+@theme {
+  /* Fonts */
+  --font-lexend: "Lexend", sans-serif;
+
+  /* ── Colors ─────────────────────────────────────────────── */
+  --color-background:               #131313;
+  --color-surface:                  #131313;
+  --color-surface-dim:              #131313;
+  --color-surface-bright:           #393939;
+  --color-surface-container-lowest: #0e0e0e;
+  --color-surface-container-low:    #1c1b1b;
+  --color-surface-container:        #201f1f;
+  --color-surface-container-high:   #2a2a2a;
+  --color-surface-container-highest:#353534;
+  --color-surface-variant:          #353534;
+
+  --color-on-surface:         #e5e2e1;
+  --color-on-surface-variant: #e9bcb5;
+  --color-on-background:      #e5e2e1;
+
+  --color-inverse-surface:    #e5e2e1;
+  --color-inverse-on-surface: #313030;
+  --color-inverse-primary:    #c00000;
+
+  --color-outline:         #b08781;
+  --color-outline-variant: #5f3f3a;
+
+  /* Primary — CRIMSON RED */
+  --color-primary:              #ffb4a8;
+  --color-on-primary:           #690000;
+  --color-primary-container:    #e60000;
+  --color-on-primary-container: #fff7f5;
+  --color-primary-fixed:        #ffdad4;
+  --color-primary-fixed-dim:    #ffb4a8;
+  --color-on-primary-fixed:     #410000;
+  --color-on-primary-fixed-variant: #930100;
+  --color-surface-tint:         #ffb4a8;
+
+  /* Secondary — ORANGE RED */
+  --color-secondary:              #ffb5a0;
+  --color-on-secondary:           #601400;
+  --color-secondary-container:    #ff5625;
+  --color-on-secondary-container: #541100;
+  --color-secondary-fixed:        #ffdbd1;
+  --color-secondary-fixed-dim:    #ffb5a0;
+  --color-on-secondary-fixed:     #3b0900;
+  --color-on-secondary-fixed-variant: #872000;
+
+  /* Tertiary — GREY */
+  --color-tertiary:           #c6c6c7;
+  --color-on-tertiary:        #2f3131;
+  --color-tertiary-container: #717272;
+  --color-on-tertiary-container: #f8f8f8;
+  --color-tertiary-fixed:     #e2e2e2;
+  --color-tertiary-fixed-dim: #c6c6c7;
+  --color-on-tertiary-fixed:  #1a1c1c;
+  --color-on-tertiary-fixed-variant: #454747;
+
+  /* Error */
+  --color-error:             #ffb4ab;
+  --color-on-error:          #690005;
+  --color-error-container:   #93000a;
+  --color-on-error-container:#ffdad6;
+
+  /* ── Typography ─────────────────────────────────────────── */
+  --font-size-display-xl:  80px;
+  --font-size-headline-lg: 48px;
+  --font-size-headline-md: 32px;
+  --font-size-body-lg:     18px;
+  --font-size-body-md:     16px;
+  --font-size-label-bold:  14px;
+
+  /* ── Spacing ────────────────────────────────────────────── */
+  --spacing-base-unit:      8px;
+  --spacing-gutter:         16px;
+  --spacing-margin-mobile:  20px;
+  --spacing-margin-desktop: 40px;
+  --spacing-stack-sm:       8px;
+  --spacing-stack-md:       24px;
+  --spacing-stack-lg:       48px;
+
+  /* ── Border Radius — Brutalist SHARP ────────────────────── */
+  --radius: 0px;
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-xl: 0px;
+}
+
+/* ── Base Resets ────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  background-color: #131313;
+  color: #e5e2e1;
+}
+
+body {
+  background-color: #131313;
+  color: #e5e2e1;
+  font-family: "Lexend", sans-serif;
+}
+
+/* Custom scrollbar — brutalist red thumb */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0e0e0e;
+  border-left: 1px solid #2a2a2a;
+}
+::-webkit-scrollbar-thumb {
+  background: #e60000;
+}
+
+/* Selection highlight */
+::selection {
+  background: #e60000;
+  color: #000000;
+}
+
+/* Focus styles */
+*:focus-visible {
+  outline: 2px solid #e60000;
+  outline-offset: 2px;
+}
+
+/* Brutalist input resets */
+input, textarea, select {
+  border-radius: 0 !important;
+  background-color: #000;
+  color: #e5e2e1;
+}
+
+/* Material Symbols */
+.material-symbols-outlined {
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+  font-size: 24px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Crimson text stroke for brutalist numbers */
+.text-stroke-crimson {
+  -webkit-text-stroke: 2px #e60000;
+  color: transparent;
+}
+
+/* Inner glows */
+.glow-crimson {
+  box-shadow: inset 0 0 20px rgba(230, 0, 0, 0.2);
+}
+.glow-crimson-lg {
+  box-shadow: inset 0 0 60px rgba(230, 0, 0, 0.15);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in {
+  animation: fadeIn 0.25s ease-out both;
+}
+
+@keyframes prPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(230, 0, 0, 0.6); }
+  50%       { box-shadow: 0 0 0 8px rgba(230, 0, 0, 0); }
+}
+.animate-pr-pulse {
+  animation: prPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
