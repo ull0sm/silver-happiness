@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useState, useEffect, useRef } from "react";
 import { saveWorkoutSession } from "@/lib/actions";
-import { PREDEFINED_PLANS, type WorkoutPlan, type PlanExercise } from "@/lib/workout-plans";
-import { EXERCISES } from "@/lib/exercises-data";
+import { type WorkoutPlan, type PlanExercise } from "@/lib/workout-plans";
 
 type SetLog = {
   setNumber: number;
@@ -21,14 +21,42 @@ type ExerciseLog = {
 
 function useElapsedTimer() {
   const [elapsed, setElapsed] = useState(0);
-  const start = useRef(Date.now());
+  const [isPaused, setIsPaused] = useState(false);
+  const accumulated = useRef(0);
+  const startedAt = useRef(Date.now());
+
   useEffect(() => {
-    const t = setInterval(() => setElapsed(Math.floor((Date.now() - start.current) / 1000)), 1000);
+    if (isPaused) return;
+
+    const tick = () => {
+      const currentElapsed = accumulated.current + Math.floor((Date.now() - startedAt.current) / 1000);
+      setElapsed(currentElapsed);
+    };
+
+    tick();
+    const t = setInterval(tick, 1000);
     return () => clearInterval(t);
-  }, []);
+  }, [isPaused]);
+
+  function pause() {
+    if (isPaused) return;
+
+    const currentElapsed = accumulated.current + Math.floor((Date.now() - startedAt.current) / 1000);
+    accumulated.current = currentElapsed;
+    setElapsed(currentElapsed);
+    setIsPaused(true);
+  }
+
+  function resume() {
+    if (!isPaused) return;
+
+    startedAt.current = Date.now();
+    setIsPaused(false);
+  }
+
   const mm = String(Math.floor(elapsed / 60)).padStart(2, "0");
   const ss = String(elapsed % 60).padStart(2, "0");
-  return { elapsed, display: `${mm}:${ss}` };
+  return { elapsed, display: `${mm}:${ss}`, isPaused, pause, resume };
 }
 
 function RestTimer({ seconds, onDone }: { seconds: number; onDone: () => void }) {
@@ -60,7 +88,7 @@ function RestTimer({ seconds, onDone }: { seconds: number; onDone: () => void })
 
 export default function ActiveWorkoutPage() {
   const router = useRouter();
-  const { elapsed, display: timerDisplay } = useElapsedTimer();
+  const { elapsed, display: timerDisplay, isPaused, pause, resume } = useElapsedTimer();
   const [plan, setPlan] = useState<WorkoutPlan | null>(null);
   const [currentIdx, setCurrentIdx] = useState(0);
   const [logs, setLogs] = useState<ExerciseLog[]>([]);
@@ -84,27 +112,7 @@ export default function ActiveWorkoutPage() {
         })),
       })));
     } else {
-      // Empty session — add exercises manually (simplified: start with 3 default exercises)
-      const defaults = EXERCISES.slice(0, 3).map((ex) => ({
-        exercise_id: ex.id,
-        name: ex.name,
-        sets: 3,
-        reps: "10",
-        rest_seconds: 90,
-        muscle_group: ex.muscle_group,
-        equipment: ex.equipment,
-        icon: ex.icon,
-      }));
-      setLogs(defaults.map((ex) => ({
-        exercise: ex,
-        sets: Array.from({ length: ex.sets }, (_, i) => ({
-          setNumber: i + 1,
-          weight: "",
-          reps: ex.reps,
-          completed: false,
-          isPR: false,
-        })),
-      })));
+      setLogs([]);
     }
   }, []);
 
@@ -171,9 +179,23 @@ export default function ActiveWorkoutPage() {
 
   if (logs.length === 0) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-center animate-fade-in">
-          <div className="text-primary-container font-black italic uppercase text-xl animate-pr-pulse mb-4">Loading session...</div>
+      <div className="p-6 md:p-10 animate-fade-in max-w-4xl mx-auto">
+        <div className="border-2 border-dashed border-surface-container-high p-10 md:p-14 text-center bg-surface-container-lowest">
+          <p className="text-xs font-black uppercase tracking-widest text-primary-container italic mb-3">NO ACTIVE SESSION</p>
+          <h1 className="text-3xl md:text-5xl font-black italic uppercase text-on-surface tracking-tighter leading-none">
+            Nothing is scheduled right now.
+          </h1>
+          <p className="text-on-surface-variant text-sm font-bold uppercase tracking-widest mt-4 max-w-xl mx-auto">
+            Start a workout from the hub or build a custom plan before opening the active tab.
+          </p>
+          <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
+            <Link href="/dashboard/workouts" className="bg-primary-container text-black font-black italic uppercase px-8 py-4 hover:bg-secondary-container transition-colors border-2 border-transparent hover:border-black text-sm tracking-widest">
+              OPEN WORKOUTS
+            </Link>
+            <Link href="/dashboard/workouts/builder" className="border-2 border-surface-container-high text-on-surface font-black italic uppercase px-8 py-4 hover:border-primary-container hover:text-primary-container transition-colors text-sm tracking-widest">
+              BUILD CUSTOM
+            </Link>
+          </div>
         </div>
       </div>
     );
@@ -208,6 +230,16 @@ export default function ActiveWorkoutPage() {
             <div className="text-4xl font-black italic text-on-surface leading-none">{timerDisplay}</div>
             <div className="text-xs font-black uppercase tracking-widest text-on-surface-variant mt-0.5">ELAPSED</div>
           </div>
+          <button
+            type="button"
+            onClick={isPaused ? resume : pause}
+            className="ml-2 inline-flex min-w-32 shrink-0 items-center justify-center gap-2 border-2 border-surface-container-highest px-3 py-2 text-xs font-black uppercase tracking-widest leading-none text-on-surface-variant hover:border-primary-container hover:text-primary-container transition-colors"
+          >
+            <span className="material-symbols-outlined inline-flex w-4 justify-center text-base leading-none" style={{ fontVariationSettings: "'FILL' 1" }}>
+              {isPaused ? "play_arrow" : "pause"}
+            </span>
+            {isPaused ? "RESUME" : "PAUSE"}
+          </button>
         </div>
 
         <button
