@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
@@ -114,10 +115,10 @@ function AuthForm() {
           <div className="w-full max-w-md space-y-stack-md">
 
             {/* Header */}
-            <div className="text-center mb-stack-lg">
-              <h2 className="font-black text-headline-lg text-primary-container uppercase italic tracking-tighter">
-                FITTRACK
-              </h2>
+            <div className="text-center mb-stack-lg flex flex-col items-center">
+              <Link href="/">
+                <Image src="/logo-FT-full-noBG.png" alt="FitTrack" width={320} height={320} className="object-contain hover:scale-105 transition-transform" />
+              </Link>
               <h3 className="font-black text-headline-md text-on-surface uppercase mt-stack-sm">
                 {mode === "login" ? "Identify" : "Enlist"}
               </h3>
