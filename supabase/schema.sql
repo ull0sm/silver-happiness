@@ -255,3 +255,22 @@ CREATE POLICY "Users manage own achievements"
 CREATE POLICY "Achievements viewable by authenticated users"
   ON public.achievements FOR SELECT
   TO authenticated USING (TRUE);
+
+-- ── Support messages table ─────────────────────────────────
+CREATE TABLE IF NOT EXISTS public.support_messages (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  name TEXT,
+  email TEXT NOT NULL,
+  message TEXT NOT NULL,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+ALTER TABLE public.support_messages ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Authenticated users can insert support messages"
+  ON public.support_messages FOR INSERT
+  WITH CHECK (TRUE);
+
+CREATE POLICY "Admins and server may view messages"
+  ON public.support_messages FOR SELECT
+  USING (auth.role() = 'authenticated' OR TRUE);

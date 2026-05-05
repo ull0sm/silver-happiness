@@ -114,9 +114,10 @@ export default function HomePage() {
           ©2025 FITTRACK PERFORMANCE LAB. NO WEAKNESS.
         </div>
         <div className="flex flex-wrap justify-center gap-6 font-bold uppercase text-xs tracking-widest">
-          {["PRIVACY", "TERMS", "COACHING", "SUPPORT"].map((l) => (
-            <a key={l} href="#" className="text-on-surface-variant hover:text-on-surface transition-colors">{l}</a>
-          ))}
+            <Link href="/privacy" className="text-on-surface-variant hover:text-on-surface transition-colors">PRIVACY</Link>
+            <Link href="/terms" className="text-on-surface-variant hover:text-on-surface transition-colors">TERMS</Link>
+            <a href="#" className="text-on-surface-variant hover:text-on-surface transition-colors">COACHING</a>
+            <Link href="/support" className="text-on-surface-variant hover:text-on-surface transition-colors">SUPPORT</Link>
         </div>
       </footer>
     </div>
