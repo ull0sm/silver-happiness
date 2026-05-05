@@ -36,4 +36,8 @@ Thanks for wanting to contribute! This project follows a lightweight contributio
 
 - For docs, typo fixes, or small UI tweaks, a short PR is fine. Label it clearly and provide context in the description.
 
+8) Licensing
+
+- This project is open-source under the [MIT License](LICENSE). By contributing to this project, you agree that your contributions will be licensed under its terms.
+
 Maintainers may suggest changes or request modifications before merging. Thank you for contributing!

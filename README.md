@@ -1,129 +1,52 @@
 # FitTrack — Silver Happiness
 
-FitTrack is a fitness app prototype built with Next.js, React and Supabase. It focuses on workout creation, active workout logging, exercise library management, and social leaderboard features.
-Repository layout (top-level):
-
-- `app/` — Next.js app routes and pages
-- `src/components/` — React components
-Quick links:
-
-- QUICKSTART: `QUICKSTART.md`
-- Contributing guidelines: `CONTRIBUTING.md`
-## Features
-
-- Workout builder and plans
-- Active workout logging
-## Tech stack
-
-- Next.js 16 (App Router)
-- React 19
-## Local development
-
-1. Copy the environment template into `.env.local` and provide your Supabase keys (see `QUICKSTART.md`).
-2. Install dependencies:
-3. Run the dev server:
-
-```bash
-npm run dev
-```
-Open http://localhost:3000 in your browser.
-
-Available npm scripts (from `package.json`):
-- `npm run dev` — start development server
-- `npm run build` — build for production
-## Database & Supabase
-
-The `supabase/schema.sql` file contains the project's database schema. To use Supabase with this project, create a project at https://app.supabase.com and set the following environment variables in `.env.local`:
-- `NEXT_PUBLIC_SUPABASE_URL`
-- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-## Deployment
-
-This project deploys easily to Vercel or any platform that supports Next.js. Ensure environment variables are set in your deployment target.
-## Where to start working
-
-- UI components: `src/components/`
-- App routes and pages: `app/` and `src/app/`
-For more setup and quick commands, see `QUICKSTART.md`. To contribute, read `CONTRIBUTING.md`.
-
----
-If you'd like, I can also add a short example `.env.local` template or set up a PR template next.
-# FitTrack — Silver Happiness
-
-FitTrack is a fitness app prototype built with Next.js, React and Supabase. It focuses on workout creation, active workout logging, exercise library management, and social leaderboard features.
+FitTrack is a fitness app prototype built with Next.js, React, and Supabase. It focuses on workout creation, active workout logging, exercise library management, and social leaderboard features.
 
 Repository layout (top-level):
 
-- `app/` — Next.js app routes and pages
+- `src/app/` — Next.js app routes and pages
 - `src/components/` — React components
-- `src/lib/` — app logic, actions and helpers
-- `supabase/` — database schema and migrations
-- `public/` — static assets
+- `src/lib/` — App logic, actions and helpers
+- `supabase/` — Database schema and migrations
+- `public/` — Static assets
 
-Quick links:
+## Quick Links
 
-- QUICKSTART: `QUICKSTART.md`
-- Contributing guidelines: `CONTRIBUTING.md`
+- [Quickstart Guide](QUICKSTART.md) — Learn how to set up the project locally.
+- [Contributing Guidelines](CONTRIBUTING.md) — Learn how to contribute to this project.
+- [Design Details](front%20end%20design/crimson_fury/DESIGN.md) — Read more about our design philosophy.
+- [License](LICENSE) — MIT License (open source, anyone can use, feel free).
 
 ## Features
 
-- Workout builder and plans
-- Active workout logging
-- Exercise library and design preview
-- Progress analytics and charts
-- Social leaderboard and sharing
+- **Workout Builder & Plans**: Create and manage custom workout routines.
+- **Active Workout Logging**: Track sets, reps, and weights during a session.
+- **Exercise Library**: Explore supported exercises and variations.
+- **Progress Analytics**: Beautiful charts using Recharts to visualize your fitness journey.
+- **Social Leaderboard**: Share progress and compete with others.
 
-## Tech stack
+## Tech Stack
 
-- Next.js 16 (App Router)
-- React 19
-- TypeScript
-- Tailwind CSS
-- Supabase (auth + database)
-- Recharts for analytics
+- **Framework**: Next.js 16 (App Router)
+- **Library**: React 19
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS v4
+- **Database & Auth**: Supabase
+- **Charts**: Recharts
 
-## Local development
+## Getting Started
 
-1. Copy the environment template into `.env.local` and provide your Supabase keys (see `QUICKSTART.md`).
-2. Install dependencies:
-
-```bash
-npm install
-```
-
-3. Run the dev server:
-
-```bash
-npm run dev
-```
-
-Open http://localhost:3000 in your browser.
-
-Available npm scripts (from `package.json`):
-
-- `npm run dev` — start development server
-- `npm run build` — build for production
-- `npm run start` — run production server
-- `npm run lint` — run ESLint
-
-## Database & Supabase
-
-The `supabase/schema.sql` file contains the project's database schema. To use Supabase with this project, create a project at https://app.supabase.com and set the following environment variables in `.env.local`:
-
-- `NEXT_PUBLIC_SUPABASE_URL`
-- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-- `SUPABASE_SERVICE_ROLE_KEY` (only for server-side operations; keep secret)
+Check out the [QUICKSTART.md](QUICKSTART.md) file for comprehensive setup instructions, including installing dependencies, setting up Supabase, and starting the local development server.
 
 ## Deployment
 
-This project deploys easily to Vercel or any platform that supports Next.js. Ensure environment variables are set in your deployment target.
+This project deploys easily to Vercel or any platform that supports Next.js. Simply link your repository and ensure your environment variables (like Supabase URLs and keys) are set in your platform's configuration dashboard.
 
-## Where to start working
+## Where to Start Working
 
-- UI components: `src/components/`
-- App routes and pages: `app/` and `src/app/`
-- Shared logic: `src/lib/`
+- **UI Components**: `src/components/`
+- **Pages / Routes**: `src/app/`
+- **Shared Code / API Logic**: `src/lib/`
 
-For more setup and quick commands, see `QUICKSTART.md`. To contribute, read `CONTRIBUTING.md`.
+To contribute, check out [CONTRIBUTING.md](CONTRIBUTING.md). We welcome community pull requests!
 
----
-If you'd like, I can also add a short example `.env.local` template or set up a PR template next.
