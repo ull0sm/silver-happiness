@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import Hero from "@/components/Hero";
 import AuthNavAction from "@/components/AuthNavAction";
 
@@ -6,10 +7,11 @@ export default function HomePage() {
   return (
     <div className="bg-background text-on-background font-lexend overflow-x-hidden min-h-screen">
       {/* ── Top Nav ─────────────────────────────────────────── */}
-      <nav className="fixed top-0 w-full z-50 flex justify-between items-center px-8 h-20 bg-black border-b-2 border-surface-container-high">
-        <div className="text-2xl font-black italic text-primary-container tracking-tighter uppercase">
-          FITTRACK
-        </div>
+      <nav className="fixed top-0 w-full z-50 flex justify-between items-center px-4 md:px-8 h-20 bg-black border-b-2 border-surface-container-high">
+        <Link href="/" className="flex items-center gap-2 md:gap-3">
+          <Image src="/Logo-FT-noBG.png" alt="FitTrack Icon" width={48} height={48} style={{ height: 'auto' }} className="object-contain w-10 md:w-12" />
+          <Image src="/logo-FT-wordmark.png" alt="FitTrack Wordmark" width={140} height={30} style={{ height: 'auto' }} className="object-contain mt-1 w-[110px] md:w-[140px] md:mt-2" />
+        </Link>
         <div className="hidden md:flex items-center gap-8 font-black italic uppercase tracking-tighter text-sm">
           <a href="#features" className="text-on-surface-variant hover:text-primary-container transition-colors duration-150">WORKOUTS</a>
           <a href="#features" className="text-on-surface-variant hover:text-primary-container transition-colors duration-150">METRICS</a>

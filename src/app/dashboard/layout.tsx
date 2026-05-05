@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { useState } from "react";
@@ -38,11 +39,10 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       <nav className="hidden md:flex flex-col fixed left-0 top-0 h-screen w-64 z-40 bg-surface-container-lowest border-r-2 border-surface-container-high">
 
         {/* Brand */}
-        <div className="p-6 border-b-2 border-surface-container-high bg-black flex items-center h-20">
-          <span className="text-2xl font-black italic text-primary-container uppercase tracking-tighter">
-            FITTRACK
-          </span>
-        </div>
+        <Link href="/dashboard" className="p-6 border-b-2 border-surface-container-high bg-black flex items-center gap-3 h-20 hover:bg-surface-container-lowest transition-colors">
+          <Image src="/Logo-FT-noBG.png" alt="FitTrack Icon" width={40} height={40} style={{ height: 'auto', width: 'auto' }} className="object-contain" />
+          <Image src="/logo-FT-wordmark.png" alt="FitTrack Wordmark" width={120} height={26} style={{ height: 'auto', width: 'auto' }} className="object-contain hidden md:block mt-1" />
+        </Link>
 
         {/* Nav Links */}
         <div className="flex flex-col mt-4 flex-grow overflow-y-auto">
@@ -83,8 +83,11 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       </nav>
 
       {/* ── Mobile Header ─────────────────────────────── */}
-      <header className="md:hidden fixed top-0 left-0 w-full z-50 flex justify-between items-center px-6 h-16 bg-black border-b-2 border-surface-container-high">
-        <span className="text-xl font-black italic text-primary-container uppercase tracking-tighter">FITTRACK</span>
+      <header className="md:hidden fixed top-0 left-0 w-full z-50 flex justify-between items-center px-4 h-16 bg-black border-b-2 border-surface-container-high">
+        <Link href="/dashboard" className="flex items-center gap-2">
+          <Image src="/Logo-FT-noBG.png" alt="FitTrack Icon" width={32} height={32} style={{ height: 'auto', width: 'auto' }} className="object-contain" />
+          <Image src="/logo-FT-wordmark.png" alt="FitTrack Wordmark" width={90} height={20} style={{ height: 'auto', width: 'auto' }} className="object-contain mt-1" />
+        </Link>
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
           className="text-on-surface-variant hover:text-primary-container transition-colors"
@@ -97,8 +100,9 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       {mobileOpen && (
         <div className="md:hidden fixed inset-0 z-40 bg-black/80" onClick={() => setMobileOpen(false)}>
           <div className="w-64 h-full bg-surface-container-lowest border-r-2 border-surface-container-high flex flex-col" onClick={(e) => e.stopPropagation()}>
-            <div className="p-6 border-b-2 border-surface-container-high h-16 flex items-center">
-              <span className="text-xl font-black italic text-primary-container uppercase tracking-tighter">FITTRACK</span>
+            <div className="p-6 border-b-2 border-surface-container-high h-16 flex items-center gap-3">
+              <Image src="/Logo-FT-noBG.png" alt="FitTrack Icon" width={32} height={32} style={{ height: 'auto', width: 'auto' }} className="object-contain" />
+              <Image src="/logo-FT-wordmark.png" alt="FitTrack Wordmark" width={90} height={20} style={{ height: 'auto', width: 'auto' }} className="object-contain mt-1" />
             </div>
             <div className="flex flex-col mt-4 flex-grow">
               {NAV_ITEMS.map((item) => {
