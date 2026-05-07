@@ -32,6 +32,7 @@ Repository layout (top-level):
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS v4
 - **Database & Auth**: Supabase
+- **Bot Protection**: Cloudflare Turnstile on login and support submissions
 - **Charts**: Recharts
 
 ## Getting Started
