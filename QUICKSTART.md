@@ -24,6 +24,10 @@ Create a `.env.local` file at the project root. At minimum set the Supabase keys
 NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url_here
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key_here
 
+# Cloudflare Turnstile (Turnstile → Your site)
+NEXT_PUBLIC_TURNSTILE_SITE_KEY=your_turnstile_site_key_here
+TURNSTILE_SECRET_KEY=your_turnstile_secret_key_here
+
 # App URL (change to your domain in production)
 NEXT_PUBLIC_APP_URL=http://localhost:3000
 

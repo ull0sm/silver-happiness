@@ -2,9 +2,11 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState, Suspense } from "react";
+import { useCallback, useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
+import TurnstileWidget from "@/components/TurnstileWidget";
+import { verifyTurnstileToken } from "@/lib/turnstile-client";
 
 function AuthForm() {
   const router = useRouter();
@@ -14,56 +16,106 @@ function AuthForm() {
   const [password, setPassword] = useState("");
   const [displayName, setDisplayName] = useState("");
   const [loading, setLoading] = useState(false);
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+  const [turnstileWidgetKey, setTurnstileWidgetKey] = useState(0);
   const [error, setError] = useState<string | null>(
     searchParams.get("error") ? "Authentication failed. Please try again." : null
   );
   const [success, setSuccess] = useState<string | null>(null);
 
   const supabase = createClient();
+  const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
+
+  const handleTurnstileError = useCallback((message: string) => {
+    setError(message);
+  }, []);
+
+  function resetTurnstile() {
+    setTurnstileToken(null);
+    setTurnstileWidgetKey((value) => value + 1);
+  }
+
+  async function verifyTurnstileOrThrow() {
+    if (!turnstileToken) {
+      throw new Error("Complete the Turnstile check before continuing.");
+    }
+
+    const token = turnstileToken;
+    resetTurnstile();
+
+    const verification = await verifyTurnstileToken(token, "login");
+
+    if (!verification.ok) {
+      throw new Error(verification.error ?? "Turnstile verification failed.");
+    }
+  }
 
   async function handleEmailAuth(e: React.FormEvent) {
     e.preventDefault();
+    if (!turnstileToken) {
+      setError("Complete the Turnstile check before continuing.");
+      return;
+    }
     setLoading(true);
     setError(null);
     setSuccess(null);
 
-    if (mode === "signup") {
-      const { error } = await supabase.auth.signUp({
-        email,
-        password,
-        options: {
-          data: { full_name: displayName },
-          emailRedirectTo: `${window.location.origin}/api/auth/callback`,
-        },
-      });
-      if (error) {
-        setError(error.message);
+    try {
+      await verifyTurnstileOrThrow();
+
+      if (mode === "signup") {
+        const { error } = await supabase.auth.signUp({
+          email,
+          password,
+          options: {
+            data: { full_name: displayName },
+            emailRedirectTo: `${window.location.origin}/api/auth/callback`,
+          },
+        });
+        if (error) {
+          setError(error.message);
+        } else {
+          setSuccess("Check your email to confirm your account, then come back and log in.");
+        }
       } else {
-        setSuccess("Check your email to confirm your account, then come back and log in.");
+        const { error } = await supabase.auth.signInWithPassword({ email, password });
+        if (error) {
+          setError(error.message);
+        } else {
+          router.push("/dashboard");
+          router.refresh();
+        }
       }
-    } else {
-      const { error } = await supabase.auth.signInWithPassword({ email, password });
-      if (error) {
-        setError(error.message);
-      } else {
-        router.push("/dashboard");
-        router.refresh();
-      }
+    } catch (submitError) {
+      setError(submitError instanceof Error ? submitError.message : "Turnstile verification failed.");
     }
+
     setLoading(false);
   }
 
   async function handleGoogleAuth() {
+    if (!turnstileToken) {
+      setError("Complete the Turnstile check before continuing.");
+      return;
+    }
+
     setLoading(true);
     setError(null);
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: "google",
-      options: {
-        redirectTo: `${window.location.origin}/api/auth/callback`,
-      },
-    });
-    if (error) {
-      setError(error.message);
+    try {
+      await verifyTurnstileOrThrow();
+
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: "google",
+        options: {
+          redirectTo: `${window.location.origin}/api/auth/callback`,
+        },
+      });
+      if (error) {
+        setError(error.message);
+        setLoading(false);
+      }
+    } catch (submitError) {
+      setError(submitError instanceof Error ? submitError.message : "Turnstile verification failed.");
       setLoading(false);
     }
   }
@@ -207,10 +259,33 @@ function AuthForm() {
                 </div>
               </div>
 
+              <div className="space-y-3">
+                <div className="flex items-center justify-between gap-3">
+                  <span className="font-black text-label-bold text-on-surface-variant uppercase tracking-widest">
+                    Human Verification
+                  </span>
+                  <button
+                    type="button"
+                    onClick={resetTurnstile}
+                    className="text-xs font-black uppercase tracking-widest text-primary-container hover:text-inverse-primary transition-colors"
+                  >
+                    Refresh
+                  </button>
+                </div>
+                <TurnstileWidget
+                  key={turnstileWidgetKey}
+                  siteKey={turnstileSiteKey}
+                  action="login"
+                  resetKey={turnstileWidgetKey}
+                  onTokenChange={setTurnstileToken}
+                  onError={handleTurnstileError}
+                />
+              </div>
+
               {/* Submit */}
               <button
                 type="submit"
-                disabled={loading}
+                disabled={loading || !turnstileToken}
                 className="w-full bg-primary-container text-black font-black uppercase italic py-4 px-6 hover:bg-secondary-container active:bg-inverse-primary transition-colors flex justify-center items-center gap-2 mt-stack-md disabled:opacity-50 disabled:cursor-not-allowed text-sm tracking-widest"
               >
                 {loading ? (
@@ -241,7 +316,7 @@ function AuthForm() {
             {/* Google OAuth */}
             <button
               onClick={handleGoogleAuth}
-              disabled={loading}
+              disabled={loading || !turnstileToken}
               className="w-full border-2 border-surface-container-high bg-transparent text-on-surface font-black uppercase italic py-3 flex justify-center items-center gap-3 hover:border-primary-container hover:text-primary-container hover:bg-black transition-all text-sm tracking-widest disabled:opacity-50"
             >
               <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
@@ -255,7 +330,7 @@ function AuthForm() {
               <p className="text-on-surface-variant text-base">
                 {mode === "login" ? "Unregistered entity?" : "Already enlisted?"}
                 <button
-                  onClick={() => { setMode(mode === "login" ? "signup" : "login"); setError(null); setSuccess(null); }}
+                  onClick={() => { setMode(mode === "login" ? "signup" : "login"); setError(null); setSuccess(null); resetTurnstile(); }}
                   className="text-primary-container uppercase font-black italic hover:text-inverse-primary border-b-2 border-transparent hover:border-inverse-primary transition-all ml-2 text-sm tracking-widest"
                 >
                   {mode === "login" ? "Enlist Now" : "Log In"}
