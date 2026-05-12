@@ -110,7 +110,6 @@ function AuthForm() {
         provider: "google",
         options: {
           redirectTo: `${window.location.origin}/api/auth/callback`,
-          captchaToken: token,
         },
       });
       if (error) {
