@@ -22,21 +22,31 @@ export async function verifyTurnstileToken(
       error: "Turnstile secret key is not configured.",
     };
   }
-
-  const formData = new FormData();
-  formData.append("secret", secret);
-  formData.append("response", token);
+  const params = new URLSearchParams();
+  params.append("secret", secret);
+  params.append("response", token);
 
   if (remoteIp) {
-    formData.append("remoteip", remoteIp);
+    params.append("remoteip", remoteIp);
   }
 
-  const response = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
-    method: "POST",
-    body: formData,
-  });
+  let response: Response;
+  try {
+    response = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: params.toString(),
+    });
+  } catch (err) {
+    return { ok: false, error: "Network error while verifying Turnstile token." };
+  }
 
-  const data = (await response.json()) as TurnstileServiceResponse;
+  let data: TurnstileServiceResponse;
+  try {
+    data = (await response.json()) as TurnstileServiceResponse;
+  } catch (err) {
+    return { ok: false, error: "Invalid response from Turnstile service." };
+  }
 
   if (!data.success) {
     return {
