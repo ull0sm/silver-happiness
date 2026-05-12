@@ -39,7 +39,6 @@ function AuthForm() {
     if (!turnstileToken) {
       throw new Error("Complete the Turnstile check before continuing.");
     }
-
     const token = turnstileToken;
     resetTurnstile();
 
@@ -48,6 +47,8 @@ function AuthForm() {
     if (!verification.ok) {
       throw new Error(verification.error ?? "Turnstile verification failed.");
     }
+
+    return token;
   }
 
   async function handleEmailAuth(e: React.FormEvent) {
@@ -61,7 +62,7 @@ function AuthForm() {
     setSuccess(null);
 
     try {
-      await verifyTurnstileOrThrow();
+      const token = await verifyTurnstileOrThrow();
 
       if (mode === "signup") {
         const { error } = await supabase.auth.signUp({
@@ -70,6 +71,7 @@ function AuthForm() {
           options: {
             data: { full_name: displayName },
             emailRedirectTo: `${window.location.origin}/api/auth/callback`,
+            captchaToken: token,
           },
         });
         if (error) {
@@ -78,7 +80,7 @@ function AuthForm() {
           setSuccess("Check your email to confirm your account, then come back and log in.");
         }
       } else {
-        const { error } = await supabase.auth.signInWithPassword({ email, password });
+        const { error } = await supabase.auth.signInWithPassword({ email, password, options: { captchaToken: token } });
         if (error) {
           setError(error.message);
         } else {
@@ -102,7 +104,7 @@ function AuthForm() {
     setLoading(true);
     setError(null);
     try {
-      await verifyTurnstileOrThrow();
+      const token = await verifyTurnstileOrThrow();
 
       const { error } = await supabase.auth.signInWithOAuth({
         provider: "google",
