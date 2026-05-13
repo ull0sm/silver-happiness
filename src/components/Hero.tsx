@@ -1,9 +1,11 @@
 import Link from "next/link";
+import HeroStats from "./HeroStats";
 
 export default function Hero() {
   return (
-    <section className="px-margin-mobile md:px-margin-desktop pt-24 pb-32 min-h-screen flex items-center">
-      <div className="max-w-[1440px] mx-auto w-full grid grid-cols-1 md:grid-cols-12 gap-gutter items-center">
+    <section className="px-margin-mobile md:px-margin-desktop pt-32 pb-24 w-full relative overflow-hidden">
+      <div className="max-w-[1440px] mx-auto w-full flex flex-col gap-16 md:gap-32">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-gutter items-center">
         <div className="col-span-1 md:col-span-7 flex flex-col gap-stack-lg z-10 animate-fade-in">
           <div className="flex flex-col gap-stack-sm">
             <span className="font-black text-label-bold text-primary-container uppercase tracking-widest italic">
@@ -72,6 +74,8 @@ export default function Hero() {
             <div className="absolute inset-0 shadow-[inset_0_0_80px_rgba(230,0,0,0.15)] pointer-events-none" />
           </div>
         </div>
+      </div>  
+        <HeroStats />
       </div>
     </section>
   );
