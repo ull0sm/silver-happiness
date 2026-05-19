@@ -1,5 +1,5 @@
 <div align="center">
-  <h1>💪 FitTrack</h1>
+  <h1><img src="public/Logo-FT-noBG.png" alt="FitTrack Logo" width="45" align="center" /> FitTrack</h1>
   <p><strong>The Ultimate Fitness Tracking & Workout Management Platform</strong></p>
 
   [![GitHub stars](https://img.shields.io/github/stars/ull0sm/silver-happiness?style=flat-square)](https://github.com/ull0sm/silver-happiness/stargazers)
